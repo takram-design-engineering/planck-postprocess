@@ -36,11 +36,11 @@ describe('Postprocess', () => {
       const renderer = new Three.WebGLRenderer()
       const width = 1000
       const height = 1000
-      expect(new Postprocess({
+      expect(() => new Postprocess({
         renderer,
         width,
         height,
-      })).not.undefined
+      })).not.throws(Error)
     })
   }
 })

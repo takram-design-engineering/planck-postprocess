@@ -35,7 +35,6 @@ import 'three/examples/js/postprocessing/SSAARenderPass'
 import BloomPass from './BloomPass'
 import FXAAPass from './FXAAPass'
 import RenderPass from './RenderPass'
-import ResolutionPass from './ResolutionPass'
 import TiltShiftHorizontalPass from './TiltShiftHorizontalPass'
 import TiltShiftVerticalPass from './TiltShiftVerticalPass'
 import VignettePass from './VignettePass'
@@ -47,7 +46,7 @@ export default class Postprocess {
     const scope = internal(this)
     scope.renderer = renderer
 
-    // Render target
+    // The primary render target
     const pixelRatio = this.renderer.getPixelRatio()
     const deviceWidth = width * pixelRatio
     const deviceHeight = height * pixelRatio
@@ -58,6 +57,8 @@ export default class Postprocess {
         format: Three.RGBFormat,
         stencilBuffer: false,
       })
+
+    // Another offscreen render target is required for bloom pass
     this.bloomTarget = new Three.WebGLRenderTarget(
       deviceWidth, deviceHeight, {
         minFilter: Three.LinearFilter,
@@ -75,7 +76,6 @@ export default class Postprocess {
     this.tiltShiftHorizontalPass = new TiltShiftHorizontalPass()
     this.tiltShiftVerticalPass = new TiltShiftVerticalPass()
     this.vignettePass = new VignettePass()
-    this.resolutionPass = new ResolutionPass()
 
     // Disable antialias passes by default
     this.fxaaPass.enabled = false
@@ -96,7 +96,6 @@ export default class Postprocess {
     this.composer.addPass(this.tiltShiftHorizontalPass)
     this.composer.addPass(this.tiltShiftVerticalPass)
     this.composer.addPass(this.vignettePass)
-    this.composer.addPass(this.resolutionPass)
     this.ensureRenderToScreen()
     this.resize(width, height)
   }
@@ -140,8 +139,6 @@ export default class Postprocess {
       lastPass.renderToScreen = true
     }
   }
-
-  // Properties
 
   get renderer() {
     const scope = internal(this)
