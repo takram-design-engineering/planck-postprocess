@@ -38,6 +38,7 @@ module.exports = {
   devtool: 'source-map',
   externals: {
     '@takram/planck-core': 'Planck',
+    'three': 'THREE',
     'chai': 'chai',
     'mocha': 'mocha',
     'nock': 'nock',
