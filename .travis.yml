@@ -1,4 +1,5 @@
 script:
+- npm install --no-save @takram/planck-core three
 - npm run test
 language: node_js
 node_js:
