@@ -34,15 +34,25 @@ export const internal = Namespace('BlurPass')
 export default class BlurPass extends Three.ShaderPass {
   constructor(shader, { amount = 9 } = {}) {
     super(shader)
-    this.denominator = 1000
-    this.amount = amount
+    const scope = internal(this)
+    scope.denominator = 1000
+    scope.amount = amount
   }
 
   setSize(width, height) {
-    this.uniforms.amount.value = this.amount / this.denominator
+    this.denominator = 1000 * width / height
   }
 
-  // Parameters
+  get denominator() {
+    const scope = internal(this)
+    return scope.denominator
+  }
+
+  set denominator(value) {
+    const scope = internal(this)
+    scope.denominator = value
+    this.uniforms.amount.value = this.amount / value
+  }
 
   get amount() {
     const scope = internal(this)

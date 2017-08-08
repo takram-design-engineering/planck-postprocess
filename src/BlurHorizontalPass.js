@@ -42,9 +42,4 @@ export default class BlurHorizontalPass extends BlurPass {
     }
     super(shader, { amount })
   }
-
-  setSize(width, height) {
-    this.denominator = 1000 * width / height
-    super.setSize(width, height)
-  }
 }
