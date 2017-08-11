@@ -42,8 +42,6 @@ module.exports = {
     'three': 'THREE',
     'chai': 'chai',
     'mocha': 'mocha',
-    'nock': 'nock',
-    'sinon': 'sinon',
   },
   module: {
     rules: [

@@ -56,8 +56,6 @@ export default {
     path.resolve(pkg.browser),
     'chai',
     'mocha',
-    'nock',
-    'sinon',
   ],
   globals: {
     '@takram/planck-core': 'Planck',
@@ -65,8 +63,6 @@ export default {
     [path.resolve(pkg.browser)]: 'Planck',
     'chai': 'chai',
     'mocha': 'mocha',
-    'nock': 'nock',
-    'sinon': 'sinon',
   },
   targets: [
     {
