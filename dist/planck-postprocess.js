@@ -720,6 +720,7 @@ var BloomPass = function (_Three$UnrealBloomPas) {
       this.oldClearColor.copy(renderer.getClearColor());
       this.oldClearAlpha = renderer.getClearAlpha();
       var oldAutoClear = renderer.autoClear;
+      // eslint-disable-next-line no-param-reassign
       renderer.autoClear = false;
       renderer.setClearColor(new Three.Color(0, 0, 0), 0);
       if (maskActive) {
@@ -769,6 +770,7 @@ var BloomPass = function (_Three$UnrealBloomPas) {
       }
       renderer.render(this.scene, this.camera, readBuffer, false);
       renderer.setClearColor(this.oldClearColor, this.oldClearAlpha);
+      // eslint-disable-next-line no-param-reassign
       renderer.autoClear = oldAutoClear;
     }
   }]);
@@ -912,6 +914,7 @@ function Namespace() {
     };
 
     if (object[symbol] === undefined) {
+      // eslint-disable-next-line no-param-reassign
       object[symbol] = init({});
     }
     return object[symbol];
@@ -956,19 +959,28 @@ var BlurPass = function (_Three$ShaderPass) {
 
     var _this = possibleConstructorReturn(this, (BlurPass.__proto__ || Object.getPrototypeOf(BlurPass)).call(this, shader));
 
-    _this.denominator = 1000;
-    _this.amount = amount;
+    var scope = internal(_this);
+    scope.denominator = 1000;
+    scope.amount = amount;
     return _this;
   }
 
   createClass(BlurPass, [{
     key: 'setSize',
     value: function setSize(width, height) {
-      this.uniforms.amount.value = this.amount / this.denominator;
+      this.denominator = 1000 * width / height;
     }
-
-    // Parameters
-
+  }, {
+    key: 'denominator',
+    get: function get$$1() {
+      var scope = internal(this);
+      return scope.denominator;
+    },
+    set: function set$$1(value) {
+      var scope = internal(this);
+      scope.denominator = value;
+      this.uniforms.amount.value = this.amount / value;
+    }
   }, {
     key: 'amount',
     get: function get$$1() {
@@ -1036,13 +1048,6 @@ var BlurHorizontalPass = function (_BlurPass) {
     return possibleConstructorReturn(this, (BlurHorizontalPass.__proto__ || Object.getPrototypeOf(BlurHorizontalPass)).call(this, shader, { amount: amount }));
   }
 
-  createClass(BlurHorizontalPass, [{
-    key: 'setSize',
-    value: function setSize(width, height) {
-      this.denominator = 1000 * width / height;
-      get(BlurHorizontalPass.prototype.__proto__ || Object.getPrototypeOf(BlurHorizontalPass.prototype), 'setSize', this).call(this, width, height);
-    }
-  }]);
   return BlurHorizontalPass;
 }(BlurPass);
 
@@ -1098,13 +1103,6 @@ var BlurVerticalPass = function (_BlurPass) {
     return possibleConstructorReturn(this, (BlurVerticalPass.__proto__ || Object.getPrototypeOf(BlurVerticalPass)).call(this, shader, { amount: amount }));
   }
 
-  createClass(BlurVerticalPass, [{
-    key: 'setSize',
-    value: function setSize(width, height) {
-      this.denominator = 1000 * width / height;
-      get(BlurVerticalPass.prototype.__proto__ || Object.getPrototypeOf(BlurVerticalPass.prototype), 'setSize', this).call(this, width, height);
-    }
-  }]);
   return BlurVerticalPass;
 }(BlurPass);
 
@@ -2349,10 +2347,12 @@ var Postprocess = function () {
       var bloomPass = this.bloomPass;
       if (bloomPass.enabled && bloomPass.needsSeparateRender) {
         var mask = camera.layers.mask;
+        // eslint-disable-next-line no-param-reassign
         camera.layers.mask = this.bloomPass.layers.mask;
         renderer.clearTarget(this.bloomTarget, true, true, true);
         renderer.render(scene, camera, this.bloomTarget);
         bloomPass.readBuffer = this.bloomTarget;
+        // eslint-disable-next-line no-param-reassign
         camera.layers.mask = mask;
       }
       this.renderPass.scene = scene;
@@ -2375,6 +2375,7 @@ var Postprocess = function () {
     value: function ensureRenderToScreen() {
       var lastPass = void 0;
       this.composer.passes.forEach(function (pass) {
+        // eslint-disable-next-line no-param-reassign
         pass.renderToScreen = false;
         if (pass.enabled) {
           lastPass = pass;
