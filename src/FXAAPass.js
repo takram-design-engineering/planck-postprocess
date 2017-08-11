@@ -35,11 +35,11 @@ import vertexShader from './shader/fxaa_vert.glsl'
 
 export default class FXAAPass extends Three.ShaderPass {
   constructor({
-      quality = 12,
-      subpix = 0.75,
-      edgeThreshold = 0.125,
-      edgeThresholdMin = 0.0625,
-    } = {}) {
+    quality = 12,
+    subpix = 0.75,
+    edgeThreshold = 0.125,
+    edgeThresholdMin = 0.0625,
+  } = {}) {
     const uniforms = {
       tDiffuse: { value: null },
       resolution: { value: new Three.Vector2(1 / 512, 1 / 512) },

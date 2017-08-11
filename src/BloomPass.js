@@ -43,6 +43,7 @@ export default class BloomPass extends Three.UnrealBloomPass {
     this.oldClearColor.copy(renderer.getClearColor())
     this.oldClearAlpha = renderer.getClearAlpha()
     const oldAutoClear = renderer.autoClear
+    // eslint-disable-next-line no-param-reassign
     renderer.autoClear = false
     renderer.setClearColor(new Three.Color(0, 0, 0), 0)
     if (maskActive) {
@@ -92,6 +93,7 @@ export default class BloomPass extends Three.UnrealBloomPass {
     }
     renderer.render(this.scene, this.camera, readBuffer, false)
     renderer.setClearColor(this.oldClearColor, this.oldClearAlpha)
+    // eslint-disable-next-line no-param-reassign
     renderer.autoClear = oldAutoClear
   }
 }
