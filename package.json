@@ -34,8 +34,7 @@
     "watch:test": "nodemon -C --watch test --exec 'npm-run-all test:compile test:local'",
     "watch:rollup": "nodemon -C --watch rollup.config.unit.js --exec 'npm run test:compile:rollup'",
     "watch:webpack": "nodemon -C --watch webpack.config.unit.js --exec 'npm run test:compile:webpack'",
-    "serve": "browser-sync start --server . --files dist --startPath test --no-open --no-notify",
-    "link": "npm link @takram/planck-core"
+    "serve": "browser-sync start --server . --files dist --startPath test --no-open --no-notify"
   },
   "dependencies": {
     "es6-template-string": "^1.1.0"
