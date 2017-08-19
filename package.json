@@ -34,7 +34,8 @@
     "watch:test": "nodemon -C --watch test --exec 'npm-run-all test:compile test:local'",
     "watch:rollup": "nodemon -C --watch rollup.config.unit.js --exec 'npm run test:compile:rollup'",
     "watch:webpack": "nodemon -C --watch webpack.config.unit.js --exec 'npm run test:compile:webpack'",
-    "serve": "browser-sync start --server . --files dist --startPath test --no-notify"
+    "serve": "browser-sync start --server . --files dist --startPath test --no-open --no-notify",
+    "link": "npm link @takram/planck-core"
   },
   "dependencies": {
     "es6-template-string": "^1.1.0"
@@ -50,7 +51,7 @@
     "@takram/eslint-config-planck": "^0.2.1",
     "@takram/planck-core": "^0.2.2",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.1",
+    "babel-loader": "^7.1.2",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
