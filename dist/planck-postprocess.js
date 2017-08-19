@@ -306,7 +306,10 @@
 		this.compositeMaterial.uniforms["bloomTintColors"].value = this.bloomTintColors;
 
 		// copy material
-		if (THREE.CopyShader === undefined) console.error("THREE.BloomPass relies on THREE.CopyShader");
+		if (THREE.CopyShader === undefined) {
+
+			console.error("THREE.BloomPass relies on THREE.CopyShader");
+		}
 
 		var copyShader = THREE.CopyShader;
 
@@ -342,12 +345,17 @@
 		constructor: THREE.UnrealBloomPass,
 
 		dispose: function dispose() {
-			for (var i = 0; i < this.renderTargetsHorizontal.length(); i++) {
+
+			for (var i = 0; i < this.renderTargetsHorizontal.length; i++) {
+
 				this.renderTargetsHorizontal[i].dispose();
 			}
-			for (var i = 0; i < this.renderTargetsVertical.length(); i++) {
+
+			for (var i = 0; i < this.renderTargetsVertical.length; i++) {
+
 				this.renderTargetsVertical[i].dispose();
 			}
+
 			this.renderTargetBright.dispose();
 		},
 
@@ -382,12 +390,14 @@
 			if (maskActive) renderer.context.disable(renderer.context.STENCIL_TEST);
 
 			// 1. Extract Bright Areas
+
 			this.highPassUniforms["tDiffuse"].value = readBuffer.texture;
 			this.highPassUniforms["luminosityThreshold"].value = this.threshold;
 			this.quad.material = this.materialHighPassFilter;
 			renderer.render(this.scene, this.camera, this.renderTargetBright, true);
 
 			// 2. Blur All the mips progressively
+
 			var inputRenderTarget = this.renderTargetBright;
 
 			for (var i = 0; i < this.nMips; i++) {
@@ -410,6 +420,7 @@
 			}
 
 			// Composite All the mips
+
 			this.quad.material = this.compositeMaterial;
 			this.compositeMaterial.uniforms["bloomStrength"].value = this.strength;
 			this.compositeMaterial.uniforms["bloomRadius"].value = this.radius;
@@ -417,6 +428,7 @@
 			renderer.render(this.scene, this.camera, this.renderTargetsHorizontal[0], true);
 
 			// Blend it additively over the input texture
+
 			this.quad.material = this.materialCopy;
 			this.copyUniforms["tDiffuse"].value = this.renderTargetsHorizontal[0].texture;
 
@@ -523,10 +535,10 @@
 				\
 				void main() {\
 					gl_FragColor = bloomStrength * ( lerpBloomFactor(bloomFactors[0]) * vec4(bloomTintColors[0], 1.0) * texture2D(blurTexture1, vUv) + \
-					 							 lerpBloomFactor(bloomFactors[1]) * vec4(bloomTintColors[1], 1.0) * texture2D(blurTexture2, vUv) + \
-												 lerpBloomFactor(bloomFactors[2]) * vec4(bloomTintColors[2], 1.0) * texture2D(blurTexture3, vUv) + \
-												 lerpBloomFactor(bloomFactors[3]) * vec4(bloomTintColors[3], 1.0) * texture2D(blurTexture4, vUv) + \
-												 lerpBloomFactor(bloomFactors[4]) * vec4(bloomTintColors[4], 1.0) * texture2D(blurTexture5, vUv) );\
+													 lerpBloomFactor(bloomFactors[1]) * vec4(bloomTintColors[1], 1.0) * texture2D(blurTexture2, vUv) + \
+													 lerpBloomFactor(bloomFactors[2]) * vec4(bloomTintColors[2], 1.0) * texture2D(blurTexture3, vUv) + \
+													 lerpBloomFactor(bloomFactors[3]) * vec4(bloomTintColors[3], 1.0) * texture2D(blurTexture4, vUv) + \
+													 lerpBloomFactor(bloomFactors[4]) * vec4(bloomTintColors[4], 1.0) * texture2D(blurTexture5, vUv) );\
 				}"
 			});
 		}
