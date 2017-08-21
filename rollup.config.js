@@ -30,7 +30,7 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import threeExample from '@shotamatsuda/rollup-plugin-three-example'
 
 export default {
-  entry: './dist/planck-postprocess.module.js',
+  input: './dist/planck-postprocess.module.js',
   sourceMap: true,
   plugins: [
     image(),
@@ -56,12 +56,12 @@ export default {
   globals: {
     'three': 'THREE',
   },
-  targets: [
+  output: [
     {
       format: 'umd',
       extend: true,
-      moduleName: 'Planck',
-      dest: './dist/planck-postprocess.js',
+      name: 'Planck',
+      file: './dist/planck-postprocess.js',
     },
   ],
 }
