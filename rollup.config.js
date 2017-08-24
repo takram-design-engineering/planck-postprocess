@@ -34,7 +34,7 @@ export default {
   sourceMap: true,
   plugins: [
     image(),
-    glslify({ include: '../**/*.+(glsl|vert|frag)' }),
+    glslify(),
     threeExample(),
     nodeResolve({ browser: true }),
     commonjs(),
