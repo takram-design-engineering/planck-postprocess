@@ -22,25 +22,14 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import * as Three from 'three'
 import chai from 'chai'
 
-import { Environment } from '@takram/planck-core'
 import { Postprocess } from '../..'
 
 const expect = chai.expect
 
 describe('Postprocess', () => {
-  if (Environment.type === 'browser') {
-    it('', () => {
-      const renderer = new Three.WebGLRenderer()
-      const width = 1000
-      const height = 1000
-      expect(() => new Postprocess({
-        renderer,
-        width,
-        height,
-      })).not.throws(Error)
-    })
-  }
+  it('', () => {
+    expect(Postprocess).ok  // TODO: Write test
+  })
 })
