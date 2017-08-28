@@ -31,7 +31,7 @@ import threeExample from '@shotamatsuda/rollup-plugin-three-example'
 
 export default {
   input: './dist/planck-postprocess.module.js',
-  sourceMap: true,
+  sourcemap: true,
   plugins: [
     image(),
     glslify(),
