@@ -105,14 +105,14 @@ export default class Postprocess {
     renderer.clear()
     const bloomPass = this.bloomPass
     if (bloomPass.enabled && bloomPass.needsSeparateRender) {
-      const mask = camera.layers.mask
+      const layers = camera.layers
       // eslint-disable-next-line no-param-reassign
-      camera.layers.mask = this.bloomPass.layers.mask
+      camera.layers = this.bloomPass.layers
       renderer.clearTarget(this.bloomTarget, true, true, true)
       renderer.render(scene, camera, this.bloomTarget)
       bloomPass.readBuffer = this.bloomTarget
       // eslint-disable-next-line no-param-reassign
-      camera.layers.mask = mask
+      camera.layers = layers
     }
     this.renderPass.scene = scene
     this.renderPass.camera = camera
