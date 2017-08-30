@@ -36,7 +36,6 @@ export default class BloomPass extends Three.UnrealBloomPass {
     this.readBuffer = null
     this.needsSeparateRender = false
     this.layers = new Three.Layers()
-    this.layers.set(1)
   }
 
   render(renderer, writeBuffer, readBuffer, delta, maskActive) {
