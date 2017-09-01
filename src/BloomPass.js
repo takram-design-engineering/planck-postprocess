@@ -32,7 +32,7 @@ export default class BloomPass extends Three.UnrealBloomPass {
   constructor(width, height, ...rest) {
     super(new Three.Vector2(width, height), ...rest)
 
-    // Parameters
+    // Additional states to support separate read buffer
     this.readBuffer = null
     this.needsSeparateRender = false
     this.layers = new Three.Layers()
@@ -63,29 +63,29 @@ export default class BloomPass extends Three.UnrealBloomPass {
     let inputRenderTarget = this.renderTargetBright
     for (let i = 0; i < this.nMips; ++i) {
       const material = this.separableBlurMaterials[i]
-      const horizontal = this.renderTargetsHorizontal[i]
-      const vertical = this.renderTargetsVertical[i]
+      const horizontalTarget = this.renderTargetsHorizontal[i]
+      const verticalTarget = this.renderTargetsVertical[i]
       this.quad.material = material
       material.uniforms.colorTexture.value = inputRenderTarget.texture
       material.uniforms.direction.value = Three.UnrealBloomPass.BlurDirectionX
-      renderer.render(this.scene, this.camera, horizontal, true)
-      material.uniforms.colorTexture.value = horizontal.texture
+      renderer.render(this.scene, this.camera, horizontalTarget, true)
+      material.uniforms.colorTexture.value = horizontalTarget.texture
       material.uniforms.direction.value = Three.UnrealBloomPass.BlurDirectionY
-      renderer.render(this.scene, this.camera, vertical, true)
-      inputRenderTarget = vertical
+      renderer.render(this.scene, this.camera, verticalTarget, true)
+      inputRenderTarget = verticalTarget
     }
 
     // Composite All the mips
-    const horizontal = this.renderTargetsHorizontal[0]
+    const horizontalTarget = this.renderTargetsHorizontal[0]
     this.quad.material = this.compositeMaterial
     this.compositeMaterial.uniforms.bloomStrength.value = this.strength
     this.compositeMaterial.uniforms.bloomRadius.value = this.radius
     this.compositeMaterial.uniforms.bloomTintColors.value = this.bloomTintColors
-    renderer.render(this.scene, this.camera, horizontal, true)
+    renderer.render(this.scene, this.camera, horizontalTarget, true)
 
     // Blend it additively over the input texture
     this.quad.material = this.materialCopy
-    this.copyUniforms.tDiffuse.value = horizontal.texture
+    this.copyUniforms.tDiffuse.value = horizontalTarget.texture
 
     if (maskActive) {
       renderer.context.enable(renderer.context.STENCIL_TEST)
