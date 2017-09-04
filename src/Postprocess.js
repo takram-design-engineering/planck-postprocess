@@ -59,7 +59,6 @@ export default class Postprocess {
       })
 
     // Shader passes
-    this.renderPass = new RenderPass()
     this.bloomPass = new BloomPass(deviceWidth, deviceHeight, 1, 0.5, 0.5)
     this.tiltShiftHorizontalPass = new TiltShiftHorizontalPass()
     this.tiltShiftVerticalPass = new TiltShiftVerticalPass()
@@ -72,7 +71,6 @@ export default class Postprocess {
 
     // Effect composer
     this.composer = new Three.EffectComposer(this.renderer)
-    this.composer.addPass(this.renderPass)
     this.composer.addPass(this.bloomPass)
     this.composer.addPass(this.tiltShiftHorizontalPass)
     this.composer.addPass(this.tiltShiftVerticalPass)
@@ -83,20 +81,17 @@ export default class Postprocess {
 
   render(scene, camera) {
     const renderer = this.renderer
-    renderer.clear()
-    const bloomPass = this.bloomPass
-    if (bloomPass.enabled && bloomPass.needsSeparateRender) {
-      const layers = camera.layers
-      // eslint-disable-next-line no-param-reassign
-      camera.layers = this.bloomPass.layers
-      renderer.clearTarget(this.bloomTarget, true, true, true)
-      renderer.render(scene, camera, this.bloomTarget)
-      bloomPass.readBuffer = this.bloomTarget
-      // eslint-disable-next-line no-param-reassign
-      camera.layers = layers
-    }
-    this.renderPass.scene = scene
-    this.renderPass.camera = camera
+    // const bloomPass = this.bloomPass
+    // if (bloomPass.enabled && bloomPass.needsSeparateRender) {
+    //   const layers = camera.layers
+    //   // eslint-disable-next-line no-param-reassign
+    //   camera.layers = this.bloomPass.layers
+    //   renderer.clearTarget(this.bloomTarget, true, true, true)
+    //   renderer.render(scene, camera, this.bloomTarget)
+    //   bloomPass.readBuffer = this.bloomTarget
+    //   // eslint-disable-next-line no-param-reassign
+    //   camera.layers = layers
+    // }
     this.composer.render()
   }
 
