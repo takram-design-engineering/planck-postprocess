@@ -55,7 +55,6 @@ export default class Postprocess {
         minFilter: Three.LinearFilter,
         magFilter: Three.LinearFilter,
         format: Three.RGBFormat,
-        stencilBuffer: false,
       })
 
     // Shader passes
@@ -83,20 +82,17 @@ export default class Postprocess {
 
   render(scene, camera) {
     const renderer = this.renderer
-    renderer.clear()
     const bloomPass = this.bloomPass
     if (bloomPass.enabled && bloomPass.needsSeparateRender) {
       const layers = camera.layers
       // eslint-disable-next-line no-param-reassign
       camera.layers = this.bloomPass.layers
-      renderer.clearTarget(this.bloomTarget, true, true, true)
+      renderer.clearTarget(this.bloomTarget)
       renderer.render(scene, camera, this.bloomTarget)
       bloomPass.readBuffer = this.bloomTarget
       // eslint-disable-next-line no-param-reassign
       camera.layers = layers
     }
-    this.renderPass.scene = scene
-    this.renderPass.camera = camera
     this.composer.render()
   }
 
