@@ -58,7 +58,6 @@ export default class Postprocess {
       })
 
     // Shader passes
-    this.renderPass = new RenderPass()
     this.bloomPass = new BloomPass(deviceWidth, deviceHeight, 1, 0.5, 0.5)
     this.tiltShiftHorizontalPass = new TiltShiftHorizontalPass()
     this.tiltShiftVerticalPass = new TiltShiftVerticalPass()
@@ -71,7 +70,6 @@ export default class Postprocess {
 
     // Effect composer
     this.composer = new Three.EffectComposer(this.renderer)
-    this.composer.addPass(this.renderPass)
     this.composer.addPass(this.bloomPass)
     this.composer.addPass(this.tiltShiftHorizontalPass)
     this.composer.addPass(this.tiltShiftVerticalPass)
