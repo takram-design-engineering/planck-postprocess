@@ -26,7 +26,7 @@ import chai from 'chai'
 
 import { Postprocess } from '../..'
 
-const expect = chai.expect
+const { expect } = chai
 
 describe('Postprocess', () => {
   it('', () => {
