@@ -48,6 +48,7 @@ export default {
       plugins: [
         'external-helpers',
       ],
+      babelrc: false,
     }),
   ],
   external: [
