@@ -51,7 +51,8 @@ export default class Postprocess {
 
     // Another offscreen render target is required for bloom pass
     this.bloomTarget = new Three.WebGLRenderTarget(
-      deviceWidth, deviceHeight, {
+      deviceWidth,
+      deviceHeight, {
         minFilter: Three.LinearFilter,
         magFilter: Three.LinearFilter,
         format: Three.RGBFormat,
@@ -79,10 +80,9 @@ export default class Postprocess {
   }
 
   render(scene, camera) {
-    const renderer = this.renderer
-    const bloomPass = this.bloomPass
+    const { renderer, bloomPass } = this
     if (bloomPass.enabled && bloomPass.needsSeparateRender) {
-      const layers = camera.layers
+      const { layers } = camera
       // eslint-disable-next-line no-param-reassign
       camera.layers = this.bloomPass.layers
       renderer.clearTarget(this.bloomTarget)
