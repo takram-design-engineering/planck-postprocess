@@ -24,7 +24,6 @@
 
 export { default as BloomPass } from '../src/BloomPass'
 export { default as FXAAPass } from '../src/FXAAPass'
-export { default as LumaPass } from '../src/LumaPass'
 export { default as Postprocess } from '../src/Postprocess'
 export { default as RenderPass } from '../src/RenderPass'
 export { default as TiltShiftHorizontalPass } from '../src/TiltShiftHorizontalPass'
