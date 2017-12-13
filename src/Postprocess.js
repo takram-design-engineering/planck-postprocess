@@ -31,6 +31,7 @@ import 'three/examples/js/postprocessing/ShaderPass'
 import 'three/examples/js/shaders/CopyShader'
 
 import BloomPass from './BloomPass'
+import EffectComposer from './EffectComposer'
 import RenderPass from './RenderPass'
 import TiltShiftHorizontalPass from './TiltShiftHorizontalPass'
 import TiltShiftVerticalPass from './TiltShiftVerticalPass'
@@ -70,7 +71,7 @@ export default class Postprocess {
     this.bloomPass.readBuffer = this.bloomTarget
 
     // Effect composer
-    this.composer = new Three.EffectComposer(this.renderer)
+    this.composer = new EffectComposer(this.renderer)
     this.composer.addPass(this.bloomPass)
     this.composer.addPass(this.tiltShiftHorizontalPass)
     this.composer.addPass(this.tiltShiftVerticalPass)
@@ -96,9 +97,9 @@ export default class Postprocess {
 
   setSize(width, height) {
     const pixelRatio = this.renderer.getPixelRatio()
+    this.composer.setSize(width, height, pixelRatio)
     const deviceWidth = width * pixelRatio
     const deviceHeight = height * pixelRatio
-    this.composer.setSize(deviceWidth, deviceHeight)
     this.bloomTarget.setSize(deviceWidth, deviceHeight)
   }
 
