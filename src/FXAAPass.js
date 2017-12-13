@@ -31,16 +31,19 @@ import fragmentShader from './shader/fxaa_frag.glsl'
 import vertexShader from './shader/fxaa_vert.glsl'
 
 export default class FXAAPass extends Three.ShaderPass {
-  constructor({
-    quality = 12,
+  constructor(width, height, pixelRatio = 1, quality = 12, {
     subpix = 0.75,
     edgeThreshold = 0.125,
     edgeThresholdMin = 0.0625,
   } = {}) {
-    const shader = {
+    const deviceWidth = (width || 256) * pixelRatio
+    const deviceHeight = (height || 256) * pixelRatio
+    super({
       uniforms: {
         tDiffuse: { value: null },
-        resolution: { value: new Three.Vector2(1 / 512, 1 / 512) },
+        resolution: {
+          value: new Three.Vector2(1 / deviceWidth, 1 / deviceHeight),
+        },
         subpix: { value: subpix },
         edgeThreshold: { value: edgeThreshold },
         edgeThresholdMin: { value: edgeThresholdMin },
@@ -50,11 +53,22 @@ export default class FXAAPass extends Three.ShaderPass {
       },
       vertexShader,
       fragmentShader,
-    }
-    super(shader)
+    })
+    this.subpix = subpix
+    this.edgeThreshold = edgeThreshold
+    this.edgeThresholdMin = edgeThresholdMin
   }
 
-  setSize(width, height) {
-    this.uniforms.resolution.value.set(1 / width, 1 / height)
+  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
+    this.uniforms.subpix.value = this.subpix
+    this.uniforms.edgeThreshold.value = this.edgeThreshold
+    this.uniforms.edgeThresholdMin.value = this.edgeThresholdMin
+    super.render(renderer, writeBuffer, readBuffer, delta, maskActive)
+  }
+
+  setSize(width, height, pixelRatio = 1) {
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
+    this.uniforms.resolution.value.set(1 / deviceWidth, 1 / deviceHeight)
   }
 }
