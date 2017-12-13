@@ -54,21 +54,35 @@ export default class FXAAPass extends Three.ShaderPass {
       vertexShader,
       fragmentShader,
     })
-    this.subpix = subpix
-    this.edgeThreshold = edgeThreshold
-    this.edgeThresholdMin = edgeThresholdMin
-  }
-
-  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    this.uniforms.subpix.value = this.subpix
-    this.uniforms.edgeThreshold.value = this.edgeThreshold
-    this.uniforms.edgeThresholdMin.value = this.edgeThresholdMin
-    super.render(renderer, writeBuffer, readBuffer, delta, maskActive)
   }
 
   setSize(width, height, pixelRatio = 1) {
     const deviceWidth = width * pixelRatio
     const deviceHeight = height * pixelRatio
     this.uniforms.resolution.value.set(1 / deviceWidth, 1 / deviceHeight)
+  }
+
+  get subpix() {
+    return this.uniforms.subpix.value
+  }
+
+  set subpix(value) {
+    this.uniforms.subpix.value = value
+  }
+
+  get edgeThreshold() {
+    return this.uniforms.edgeThreshold.value
+  }
+
+  set edgeThreshold(value) {
+    this.uniforms.edgeThreshold.value = value
+  }
+
+  get edgeThresholdMin() {
+    return this.uniforms.edgeThresholdMin.value
+  }
+
+  set edgeThresholdMin(value) {
+    this.uniforms.edgeThresholdMin.value = value
   }
 }
