@@ -2,23 +2,24 @@
 // Copyright (C) 2016-Present Shota Matsuda
 
 #define FXAA_GLSL_100 1
-#define FXAA_QUALITY_PRESET ${quality}
+#define FXAA_GREEN_AS_LUMA 1
 
-${fxaaShader}
+#pragma glslify: FxaaPixelShader = require(./fxaa.glsl)
 
 uniform sampler2D tDiffuse;
 uniform vec2 resolution;
+uniform float subpix;
+uniform float edgeThreshold;
+uniform float edgeThresholdMin;
 
 varying vec2 vUv;
 
 void main() {
   gl_FragColor = FxaaPixelShader(
-    vUv,
-    tDiffuse,
-    resolution,
-    ${subpix.toPrecision(10)},
-    ${edgeThreshold.toPrecision(10)},
-    ${edgeThresholdMin.toPrecision(10)}
-  );
-  gl_FragColor.a = 1.0;
+      vUv,
+      tDiffuse,
+      resolution,
+      subpix,
+      edgeThreshold,
+      edgeThresholdMin);
 }

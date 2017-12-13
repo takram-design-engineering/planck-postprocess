@@ -845,3 +845,5 @@ FxaaFloat4 FxaaPixelShader(
     return FxaaFloat4(FxaaTexTop(tex, posM).xyz, lumaM);
   #endif
 }
+
+#pragma glslify: export(FxaaPixelShader)

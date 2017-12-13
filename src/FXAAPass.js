@@ -23,14 +23,11 @@
 //
 
 import * as Three from 'three'
-import templateString from 'es6-template-string'
 
 import 'three/examples/js/postprocessing/EffectComposer'
 import 'three/examples/js/postprocessing/ShaderPass'
-import 'three/examples/js/shaders/FXAAShader'
 
 import fragmentShader from './shader/fxaa_frag.glsl'
-import fxaaShader from './shader/fxaa.glsl'
 import vertexShader from './shader/fxaa_vert.glsl'
 
 export default class FXAAPass extends Three.ShaderPass {
@@ -40,23 +37,21 @@ export default class FXAAPass extends Three.ShaderPass {
     edgeThreshold = 0.125,
     edgeThresholdMin = 0.0625,
   } = {}) {
-    const uniforms = {
-      tDiffuse: { value: null },
-      resolution: { value: new Three.Vector2(1 / 512, 1 / 512) },
-    }
-    // eslint-disable-next-line no-unused-vars
     const shader = {
-      uniforms,
+      uniforms: {
+        tDiffuse: { value: null },
+        resolution: { value: new Three.Vector2(1 / 512, 1 / 512) },
+        subpix: { value: subpix },
+        edgeThreshold: { value: edgeThreshold },
+        edgeThresholdMin: { value: edgeThresholdMin },
+      },
+      defines: {
+        FXAA_QUALITY_PRESET: quality,
+      },
       vertexShader,
-      fragmentShader: templateString(fragmentShader, {
-        fxaaShader,
-        quality,
-        subpix,
-        edgeThreshold,
-        edgeThresholdMin,
-      }),
+      fragmentShader,
     }
-    super(Three.FXAAShader)
+    super(shader)
   }
 
   setSize(width, height) {
