@@ -23,10 +23,6 @@
 //
 
 export { default as BloomPass } from '../src/BloomPass'
-export { default as BlurHorizontalPass } from '../src/BlurHorizontalPass'
-export { default as BlurPass } from '../src/BlurPass'
-export { default as BlurVerticalPass } from '../src/BlurVerticalPass'
-export { default as ComposePass } from '../src/ComposePass'
 export { default as FXAAPass } from '../src/FXAAPass'
 export { default as LumaPass } from '../src/LumaPass'
 export { default as Postprocess } from '../src/Postprocess'
