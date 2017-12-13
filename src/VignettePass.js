@@ -32,20 +32,26 @@ import noiseImage from './image/noise.png'
 import vertexShader from './shader/vignette_vert.glsl'
 
 export default class VignettePass extends Three.ShaderPass {
-  constructor() {
-    const uniforms = {
-      tDiffuse: { value: null },
-      tNoise: { value: null },
-      size: { value: new Three.Vector2() },
-      amount: { value: 1 },
-    }
-    const shader = { uniforms, vertexShader, fragmentShader }
-    super(shader)
+  constructor(width, height, pixelRatio = 1, amount = 1) {
+    const deviceWidth = (width || 256) * pixelRatio
+    const deviceHeight = (height || 256) * pixelRatio
+    super({
+      uniforms: {
+        tDiffuse: { value: null },
+        tNoise: { value: null },
+        resolution: { value: new Three.Vector2(deviceWidth, deviceHeight) },
+        amount: { value: amount },
+      },
+      vertexShader,
+      fragmentShader,
+    })
     this.uniforms.tNoise.value = new Three.TextureLoader().load(noiseImage)
   }
 
-  setSize(width, height) {
-    this.uniforms.size.value.set(width, height)
+  setSize(width, height, pixelRatio = 1) {
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
+    this.uniforms.resolution.value.set(deviceWidth, deviceHeight)
   }
 
   get amount() {
