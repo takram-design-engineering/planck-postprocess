@@ -33,7 +33,7 @@ export default class RenderPass extends Three.Pass {
     this.clearColor = clearColor
     this.clearAlpha = clearAlpha !== undefined ? clearAlpha : 0
     this.clear = true
-  	this.clearDepth = false
+    this.clearDepth = false
     this.needsSwap = false
     this.info = {
       render: {},

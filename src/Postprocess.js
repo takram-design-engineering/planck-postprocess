@@ -32,7 +32,7 @@ import 'three/examples/js/shaders/CopyShader'
 
 import BloomPass from './BloomPass'
 import EffectComposer from './EffectComposer'
-import RenderPass from './RenderPass'
+import FXAAPass from './FXAAPass'
 import TiltShiftPass from './TiltShiftPass'
 import VignettePass from './VignettePass'
 
@@ -56,12 +56,17 @@ export default class Postprocess {
         minFilter: Three.LinearFilter,
         magFilter: Three.LinearFilter,
         format: Three.RGBFormat,
-      })
+      },
+    )
 
     // Shader passes
+    this.fxaaPass = new FXAAPass()
     this.bloomPass = new BloomPass(deviceWidth, deviceHeight, 1, 0.5, 0.5)
     this.tiltShiftPass = new TiltShiftPass()
     this.vignettePass = new VignettePass()
+
+    // Disable FXAA pass pass by default
+    this.fxaaPass.enabled = false
 
     // Disable bloom pass pass by default
     this.bloomPass.enabled = false
@@ -70,6 +75,7 @@ export default class Postprocess {
 
     // Effect composer
     this.composer = new EffectComposer(this.renderer)
+    this.composer.addPass(this.fxaaPass)
     this.composer.addPass(this.bloomPass)
     this.composer.addPass(this.tiltShiftPass)
     this.composer.addPass(this.vignettePass)
