@@ -50,7 +50,7 @@ export default class RenderPass extends Three.Pass {
     let clearColor
     let clearAlpha
     if (this.clearColor) {
-      clearColor = renderer.getClearColor()
+      clearColor = renderer.getClearColor().getHex()
       clearAlpha = renderer.getClearAlpha()
       renderer.setClearColor(this.clearColor, this.clearAlpha)
     }
