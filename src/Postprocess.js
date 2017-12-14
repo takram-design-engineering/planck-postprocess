@@ -33,8 +33,7 @@ import 'three/examples/js/shaders/CopyShader'
 import BloomPass from './BloomPass'
 import EffectComposer from './EffectComposer'
 import RenderPass from './RenderPass'
-import TiltShiftHorizontalPass from './TiltShiftHorizontalPass'
-import TiltShiftVerticalPass from './TiltShiftVerticalPass'
+import TiltShiftPass from './TiltShiftPass'
 import VignettePass from './VignettePass'
 
 export const internal = Namespace('Postprocess')
@@ -61,8 +60,7 @@ export default class Postprocess {
 
     // Shader passes
     this.bloomPass = new BloomPass(deviceWidth, deviceHeight, 1, 0.5, 0.5)
-    this.tiltShiftHorizontalPass = new TiltShiftHorizontalPass()
-    this.tiltShiftVerticalPass = new TiltShiftVerticalPass()
+    this.tiltShiftPass = new TiltShiftPass()
     this.vignettePass = new VignettePass()
 
     // Disable bloom pass pass by default
@@ -73,8 +71,7 @@ export default class Postprocess {
     // Effect composer
     this.composer = new EffectComposer(this.renderer)
     this.composer.addPass(this.bloomPass)
-    this.composer.addPass(this.tiltShiftHorizontalPass)
-    this.composer.addPass(this.tiltShiftVerticalPass)
+    this.composer.addPass(this.tiltShiftPass)
     this.composer.addPass(this.vignettePass)
     this.ensureRenderToScreen()
     this.setSize(width, height)
