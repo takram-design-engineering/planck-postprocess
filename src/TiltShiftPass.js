@@ -52,7 +52,6 @@ export default class TiltShiftPass extends Three.Pass {
     this.material = new Three.ShaderMaterial({
       defines: {
         KERNEL_SIZE: size,
-        RESOLUTION: 1024,
       },
       uniforms: this.uniforms,
       vertexShader,

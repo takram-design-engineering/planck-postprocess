@@ -17,9 +17,8 @@ varying vec2 vUv;
 void main() {
   vec4 color = vec4(0.0);
   float gradient = pow(abs((center * 0.5 + 0.5) - vUv.y) * 2.0, 2.0);
-  vec2 aspect = vec2(1.0, resolution.x / resolution.y);
-  float size = max(resolution.x, resolution.y);
-  vec2 amount = clamp(radius * gradient / size * aspect, 0.0, radiusLimit);
+  vec2 aspect = vec2(resolution.y / resolution.x, 1.0);
+  vec2 amount = min(radius * gradient * aspect / resolution.y, radiusLimit);
   vec2 offset = amount * direction;
 
   #if KERNEL_SIZE == 9
