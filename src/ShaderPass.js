@@ -27,9 +27,9 @@ import * as Three from 'three'
 import 'three/examples/js/postprocessing/EffectComposer'
 
 export default class ShaderPass extends Three.Pass {
-  constructor(shader, textureId) {
+  constructor(shader, textureId = 'tDiffuse') {
     super()
-  	this.textureId = textureId !== undefined ? textureId : 'tDiffuse'
+  	this.textureId = textureId
   	if (shader instanceof Three.ShaderMaterial) {
   		this.uniforms = shader.uniforms
   		this.material = shader.clone()
