@@ -22,15 +22,6 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import * as Three from 'three'
-
-import Namespace from '@takram/planck-core/src/Namespace'
-
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/postprocessing/ShaderPass'
-import 'three/examples/js/shaders/CopyShader'
-
-import BloomPass from './BloomPass'
 import EffectComposer from './EffectComposer'
 import TiltShiftPass from './TiltShiftPass'
 import VignettePass from './VignettePass'
@@ -38,63 +29,21 @@ import VignettePass from './VignettePass'
 export default class Postprocess {
   constructor(renderer) {
     this.renderer = renderer
-
-    // The primary render target
-    const { width, height } = renderer.getSize()
-    const pixelRatio = this.renderer.getPixelRatio()
-    const deviceWidth = width * pixelRatio
-    const deviceHeight = height * pixelRatio
-
-    // Another offscreen render target is required for bloom pass
-    this.bloomTarget = new Three.WebGLRenderTarget(
-      deviceWidth,
-      deviceHeight, {
-        minFilter: Three.LinearFilter,
-        magFilter: Three.LinearFilter,
-        format: Three.RGBFormat,
-      },
-    )
-
-    // Shader passes
-    this.bloomPass = new BloomPass(deviceWidth, deviceHeight, 1, 0.5, 0.5)
-    this.tiltShiftPass = new TiltShiftPass()
-    this.vignettePass = new VignettePass()
-
-    // Disable bloom pass pass by default
-    this.bloomPass.enabled = false
-    this.bloomPass.highPassUniforms.smoothWidth.value = 0.1
-    this.bloomPass.readBuffer = this.bloomTarget
-
-    // Effect composer
     this.composer = new EffectComposer(this.renderer)
-    this.composer.addPass(this.bloomPass)
+    this.tiltShiftPass = new TiltShiftPass()
     this.composer.addPass(this.tiltShiftPass)
+    this.vignettePass = new VignettePass()
     this.composer.addPass(this.vignettePass)
     this.ensureRenderToScreen()
-    this.setSize(width, height)
   }
 
   render(scene, camera) {
-    const { renderer, bloomPass } = this
-    if (bloomPass.enabled && bloomPass.needsSeparateRender) {
-      const { layers } = camera
-      // eslint-disable-next-line no-param-reassign
-      camera.layers = this.bloomPass.layers
-      renderer.clearTarget(this.bloomTarget)
-      renderer.render(scene, camera, this.bloomTarget)
-      bloomPass.readBuffer = this.bloomTarget
-      // eslint-disable-next-line no-param-reassign
-      camera.layers = layers
-    }
     this.composer.render()
   }
 
   setSize(width, height) {
     const pixelRatio = this.renderer.getPixelRatio()
     this.composer.setSize(width, height, pixelRatio)
-    const deviceWidth = width * pixelRatio
-    const deviceHeight = height * pixelRatio
-    this.bloomTarget.setSize(deviceWidth, deviceHeight)
   }
 
   addPass(pass) {
