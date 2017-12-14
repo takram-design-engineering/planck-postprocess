@@ -31,9 +31,9 @@ import noiseImage from './image/noise.png'
 import vertexShader from './shader/vignette_vert.glsl'
 
 export default class VignettePass extends ShaderPass {
-  constructor(width, height, pixelRatio = 1, amount = 1) {
-    const deviceWidth = (width || 256) * pixelRatio
-    const deviceHeight = (height || 256) * pixelRatio
+  constructor(width = 256, height = 256, pixelRatio = 1, amount = 1) {
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
     super({
       uniforms: {
         tDiffuse: { value: null },

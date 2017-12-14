@@ -29,13 +29,13 @@ import ShaderPass from './ShaderPass'
 import vertexShader from './shader/fxaa_vert.glsl'
 
 export default class FXAAPass extends ShaderPass {
-  constructor(width, height, pixelRatio = 1, quality = 12, {
+  constructor(width = 256, height = 256, pixelRatio = 1, quality = 12, {
     subpix = 0.75,
     edgeThreshold = 0.125,
     edgeThresholdMin = 0.0625,
   } = {}) {
-    const deviceWidth = (width || 256) * pixelRatio
-    const deviceHeight = (height || 256) * pixelRatio
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
     super({
       defines: {
         FXAA_QUALITY_PRESET: quality,

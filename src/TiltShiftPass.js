@@ -30,7 +30,7 @@ import fragmentShader from './shader/tilt_shift_frag.glsl'
 import vertexShader from './shader/tilt_shift_vert.glsl'
 
 export default class TiltShiftPass extends Three.Pass {
-  constructor(width, height, pixelRatio = 1, size = 9, {
+  constructor(width = 256, height = 256, pixelRatio = 1, size = 9, {
     radius = 3,
     radiusMax,
     center = 0,
@@ -40,7 +40,7 @@ export default class TiltShiftPass extends Three.Pass {
     this.needsSwap = false
     this.uniforms = {
       tDiffuse: { value: null },
-      resolution: { value: new Three.Vector2(width || 256, height || 256) },
+      resolution: { value: new Three.Vector2(width, height) },
       direction: { value: new Three.Vector2() },
       radius: { value: radius },
       radiusMax: { value: (radiusMax !== undefined ? radiusMax : radius * 2) },

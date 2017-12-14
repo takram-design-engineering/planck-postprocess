@@ -725,7 +725,10 @@ var toConsumableArray = function (arr) {
 var BloomPass = function (_Three$UnrealBloomPas) {
   inherits(BloomPass, _Three$UnrealBloomPas);
 
-  function BloomPass(width, height) {
+  function BloomPass() {
+    var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 256;
+    var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 256;
+
     var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
         _ref$strength = _ref.strength,
         strength = _ref$strength === undefined ? 1 : _ref$strength,
@@ -739,7 +742,7 @@ var BloomPass = function (_Three$UnrealBloomPas) {
     // UnrealBloomPass divides the resolution by 2 for the bright render target
     // and the largest mipmap target, that makes light bleeding much visible.
     // Use the twice larger resolution here to minimize that.
-    var resolution = new Three.Vector2((width || 256) * 2, (height || 256) * 2);
+    var resolution = new Three.Vector2(width * 2, height * 2);
 
     var _this = possibleConstructorReturn(this, (BloomPass.__proto__ || Object.getPrototypeOf(BloomPass)).call(this, resolution, strength, radius, threshold));
 
@@ -993,7 +996,9 @@ var vertexShader = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016
 var FXAAPass = function (_ShaderPass) {
   inherits(FXAAPass, _ShaderPass);
 
-  function FXAAPass(width, height) {
+  function FXAAPass() {
+    var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 256;
+    var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 256;
     var pixelRatio = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var quality = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 12;
 
@@ -1007,8 +1012,8 @@ var FXAAPass = function (_ShaderPass) {
 
     classCallCheck(this, FXAAPass);
 
-    var deviceWidth = (width || 256) * pixelRatio;
-    var deviceHeight = (height || 256) * pixelRatio;
+    var deviceWidth = width * pixelRatio;
+    var deviceHeight = height * pixelRatio;
     return possibleConstructorReturn(this, (FXAAPass.__proto__ || Object.getPrototypeOf(FXAAPass)).call(this, {
       defines: {
         FXAA_QUALITY_PRESET: quality
@@ -1267,7 +1272,9 @@ var vertexShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 20
 var TiltShiftPass = function (_Three$Pass) {
   inherits(TiltShiftPass, _Three$Pass);
 
-  function TiltShiftPass(width, height) {
+  function TiltShiftPass() {
+    var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 256;
+    var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 256;
     var size = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 9;
 
     var _ref = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {},
@@ -1286,7 +1293,7 @@ var TiltShiftPass = function (_Three$Pass) {
     _this.needsSwap = false;
     _this.uniforms = {
       tDiffuse: { value: null },
-      resolution: { value: new Three.Vector2(width || 256, height || 256) },
+      resolution: { value: new Three.Vector2(width, height) },
       direction: { value: new Three.Vector2() },
       radius: { value: radius },
       radiusMax: { value: radiusMax !== undefined ? radiusMax : radius * 2 },
@@ -1407,13 +1414,15 @@ var vertexShader$2 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 20
 var VignettePass = function (_ShaderPass) {
   inherits(VignettePass, _ShaderPass);
 
-  function VignettePass(width, height) {
+  function VignettePass() {
+    var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 256;
+    var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 256;
     var pixelRatio = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var amount = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
     classCallCheck(this, VignettePass);
 
-    var deviceWidth = (width || 256) * pixelRatio;
-    var deviceHeight = (height || 256) * pixelRatio;
+    var deviceWidth = width * pixelRatio;
+    var deviceHeight = height * pixelRatio;
 
     var _this = possibleConstructorReturn(this, (VignettePass.__proto__ || Object.getPrototypeOf(VignettePass)).call(this, {
       uniforms: {

@@ -29,7 +29,7 @@ import 'three/examples/js/shaders/LuminosityHighPassShader'
 import 'three/examples/js/postprocessing/UnrealBloomPass'
 
 export default class BloomPass extends Three.UnrealBloomPass {
-  constructor(width, height, {
+  constructor(width = 256, height = 256, {
     strength = 1,
     radius = 0.5,
     threshold = 0.5,
@@ -37,10 +37,7 @@ export default class BloomPass extends Three.UnrealBloomPass {
     // UnrealBloomPass divides the resolution by 2 for the bright render target
     // and the largest mipmap target, that makes light bleeding much visible.
     // Use the twice larger resolution here to minimize that.
-    const resolution = new Three.Vector2(
-      (width || 256) * 2,
-      (height || 256) * 2,
-    )
+    const resolution = new Three.Vector2(width * 2, height * 2)
     super(resolution, strength, radius, threshold)
     this.needsSeparateRender = false
     this.separateCamera = null
