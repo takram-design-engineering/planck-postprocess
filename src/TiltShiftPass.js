@@ -31,20 +31,20 @@ import vertexShader from './shader/tilt_shift_vert.glsl'
 
 export default class TiltShiftPass extends Three.Pass {
   constructor(width, height, pixelRatio = 1, size = 9, {
-    center = 0,
     radius = 3,
-    radiusLimit,
+    radiusMax,
+    center = 0,
+    scale = 1024,
   } = {}) {
     super()
     this.uniforms = {
       tDiffuse: { value: null },
       resolution: { value: new Three.Vector2(width || 256, height || 256) },
       direction: { value: new Three.Vector2() },
-      center: { value: 0 },
       radius: { value: radius },
-      radiusLimit: {
-        value: (radiusLimit !== undefined ? radiusLimit : radius * 2),
-      },
+      radiusMax: { value: (radiusMax !== undefined ? radiusMax : radius * 2) },
+      center: { value: 0 },
+      scale: { value: scale },
     }
     this.needsSwap = false
     this.camera = new Three.OrthographicCamera(-1, 1, 1, -1, 0, 1)
@@ -85,14 +85,6 @@ export default class TiltShiftPass extends Three.Pass {
     this.uniforms.resolution.value.set(width, height)
   }
 
-  get center() {
-    return this.uniforms.center.value
-  }
-
-  set center(value) {
-    this.uniforms.center.value = value
-  }
-
   get radius() {
     return this.uniforms.radius.value
   }
@@ -101,11 +93,27 @@ export default class TiltShiftPass extends Three.Pass {
     this.uniforms.radius.value = value
   }
 
-  get radiusLimit() {
-    return this.uniforms.radiusLimit.value
+  get radiusMax() {
+    return this.uniforms.radiusMax.value
   }
 
-  set radiusLimit(value) {
-    this.uniforms.radiusLimit.value = value
+  set radiusMax(value) {
+    this.uniforms.radiusMax.value = value
+  }
+
+  get center() {
+    return this.uniforms.center.value
+  }
+
+  set center(value) {
+    this.uniforms.center.value = value
+  }
+
+  get scale() {
+    return this.uniforms.scale.value
+  }
+
+  set scale(value) {
+    this.uniforms.scale.value = value
   }
 }

@@ -15,8 +15,8 @@ void main() {
   vec4 pixel = texture2D(tDiffuse, vUv);
   vec3 color = pixel.rgb;
   vec2 uv = (vUv - vec2(0.5)) * 2.0 * vec2(
-    clamp(resolution.x / resolution.y, 0.0, 1.0),
-    clamp(resolution.y / resolution.x, 0.0, 1.0));
+      clamp(resolution.x / resolution.y, 0.0, 1.0),
+      clamp(resolution.y / resolution.x, 0.0, 1.0));
   float coeff = amount * dot(uv, uv);
   color = blendSoftLight(color, vec3(0.0), coeff);
   color = mix(color, vec3(0.0), vec3(coeff * 0.2));
