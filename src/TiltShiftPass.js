@@ -37,6 +37,7 @@ export default class TiltShiftPass extends Three.Pass {
     scale = 1024,
   } = {}) {
     super()
+    this.needsSwap = false
     this.uniforms = {
       tDiffuse: { value: null },
       resolution: { value: new Three.Vector2(width || 256, height || 256) },
@@ -46,9 +47,6 @@ export default class TiltShiftPass extends Three.Pass {
       center: { value: 0 },
       scale: { value: scale },
     }
-    this.needsSwap = false
-    this.camera = new Three.OrthographicCamera(-1, 1, 1, -1, 0, 1)
-    this.scene = new Three.Scene()
     this.material = new Three.ShaderMaterial({
       defines: {
         KERNEL_SIZE: size,
@@ -57,10 +55,16 @@ export default class TiltShiftPass extends Three.Pass {
       vertexShader,
       fragmentShader,
     })
+    this.camera = new Three.OrthographicCamera(-1, 1, 1, -1, 0, 1)
+    this.scene = new Three.Scene()
     const geometry = new Three.PlaneBufferGeometry(2, 2)
     this.quad = new Three.Mesh(geometry, this.material)
     this.quad.frustumCulled = false
     this.scene.add(this.quad)
+  }
+
+  dispose() {
+    this.material.dispose()
   }
 
   render(renderer, writeBuffer, readBuffer, delta, maskActive) {
