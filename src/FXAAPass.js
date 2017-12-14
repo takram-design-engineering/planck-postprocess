@@ -39,6 +39,9 @@ export default class FXAAPass extends Three.ShaderPass {
     const deviceWidth = (width || 256) * pixelRatio
     const deviceHeight = (height || 256) * pixelRatio
     super({
+      defines: {
+        FXAA_QUALITY_PRESET: quality,
+      },
       uniforms: {
         tDiffuse: { value: null },
         resolution: {
@@ -47,9 +50,6 @@ export default class FXAAPass extends Three.ShaderPass {
         subpix: { value: subpix },
         edgeThreshold: { value: edgeThreshold },
         edgeThresholdMin: { value: edgeThresholdMin },
-      },
-      defines: {
-        FXAA_QUALITY_PRESET: quality,
       },
       vertexShader,
       fragmentShader,
