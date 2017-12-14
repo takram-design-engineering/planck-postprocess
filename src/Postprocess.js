@@ -32,16 +32,12 @@ import 'three/examples/js/shaders/CopyShader'
 
 import BloomPass from './BloomPass'
 import EffectComposer from './EffectComposer'
-import FXAAPass from './FXAAPass'
 import TiltShiftPass from './TiltShiftPass'
 import VignettePass from './VignettePass'
 
-export const internal = Namespace('Postprocess')
-
 export default class Postprocess {
   constructor(renderer) {
-    const scope = internal(this)
-    scope.renderer = renderer
+    this.renderer = renderer
 
     // The primary render target
     const { width, height } = renderer.getSize()
@@ -60,13 +56,9 @@ export default class Postprocess {
     )
 
     // Shader passes
-    this.fxaaPass = new FXAAPass()
     this.bloomPass = new BloomPass(deviceWidth, deviceHeight, 1, 0.5, 0.5)
     this.tiltShiftPass = new TiltShiftPass()
     this.vignettePass = new VignettePass()
-
-    // Disable FXAA pass pass by default
-    this.fxaaPass.enabled = false
 
     // Disable bloom pass pass by default
     this.bloomPass.enabled = false
@@ -75,7 +67,6 @@ export default class Postprocess {
 
     // Effect composer
     this.composer = new EffectComposer(this.renderer)
-    this.composer.addPass(this.fxaaPass)
     this.composer.addPass(this.bloomPass)
     this.composer.addPass(this.tiltShiftPass)
     this.composer.addPass(this.vignettePass)
@@ -106,6 +97,14 @@ export default class Postprocess {
     this.bloomTarget.setSize(deviceWidth, deviceHeight)
   }
 
+  addPass(pass) {
+    this.composer.addPass(pass)
+  }
+
+  insertPass(pass, index) {
+    this.composer.insertPass(pass, index)
+  }
+
   ensureRenderToScreen() {
     let lastPass
     for (let i = 0; i < this.composer.passes.length; ++i) {
@@ -118,14 +117,5 @@ export default class Postprocess {
     if (lastPass) {
       lastPass.renderToScreen = true
     }
-  }
-
-  get renderer() {
-    const scope = internal(this)
-    return scope.renderer
-  }
-
-  get info() {
-    return this.renderPass.info
   }
 }

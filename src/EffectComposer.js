@@ -37,4 +37,15 @@ export default class EffectComposer extends Three.EffectComposer {
       this.passes[i].setSize(width, height, pixelRatio)
     }
   }
+
+  dispose() {
+    this.renderTarget1.dispose()
+    this.renderTarget2.dispose()
+    for (let i = 0; i < this.passes.length; ++i) {
+      const pass = this.passes[i]
+      if (pass.dispose) {
+        pass.dispose()
+      }
+    }
+  }
 }
