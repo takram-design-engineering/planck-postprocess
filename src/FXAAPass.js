@@ -24,13 +24,11 @@
 
 import * as Three from 'three'
 
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/postprocessing/ShaderPass'
-
 import fragmentShader from './shader/fxaa_frag.glsl'
+import ShaderPass from './ShaderPass'
 import vertexShader from './shader/fxaa_vert.glsl'
 
-export default class FXAAPass extends Three.ShaderPass {
+export default class FXAAPass extends ShaderPass {
   constructor(width, height, pixelRatio = 1, quality = 12, {
     subpix = 0.75,
     edgeThreshold = 0.125,

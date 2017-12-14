@@ -24,14 +24,13 @@
 
 import * as Three from 'three'
 
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/postprocessing/ShaderPass'
+import ShaderPass from './ShaderPass'
 
 import fragmentShader from './shader/vignette_frag.glsl'
 import noiseImage from './image/noise.png'
 import vertexShader from './shader/vignette_vert.glsl'
 
-export default class VignettePass extends Three.ShaderPass {
+export default class VignettePass extends ShaderPass {
   constructor(width, height, pixelRatio = 1, amount = 1) {
     const deviceWidth = (width || 256) * pixelRatio
     const deviceHeight = (height || 256) * pixelRatio
@@ -46,6 +45,11 @@ export default class VignettePass extends Three.ShaderPass {
       fragmentShader,
     })
     this.uniforms.tNoise.value = new Three.TextureLoader().load(noiseImage)
+  }
+
+  dispose() {
+    super.dispose()
+    this.uniforms.tNoise.value.dispose()
   }
 
   setSize(width, height, pixelRatio = 1) {
