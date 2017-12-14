@@ -736,7 +736,10 @@ var BloomPass = function (_Three$UnrealBloomPas) {
 
     classCallCheck(this, BloomPass);
 
-    var resolution = new Three.Vector2(width || 256, height || 256);
+    // UnrealBloomPass divides the resolution by 2 for the bright render target
+    // and the largest mipmap target, that makes light bleeding much visible.
+    // Use the twice larger resolution here to minimize that.
+    var resolution = new Three.Vector2((width || 256) * 2, (height || 256) * 2);
 
     var _this = possibleConstructorReturn(this, (BloomPass.__proto__ || Object.getPrototypeOf(BloomPass)).call(this, resolution, strength, radius, threshold));
 
@@ -821,6 +824,12 @@ var BloomPass = function (_Three$UnrealBloomPas) {
       if (this.clearColor) {
         renderer.setClearColor(clearColor, clearAlpha);
       }
+    }
+  }, {
+    key: 'setSize',
+    value: function setSize(width, height) {
+      // The same discussion in the constructor
+      get(BloomPass.prototype.__proto__ || Object.getPrototypeOf(BloomPass.prototype), 'setSize', this).call(this, width * 2, height * 2);
     }
   }]);
   return BloomPass;
@@ -1174,6 +1183,42 @@ var EffectComposer$1 = function (_Three$EffectComposer) {
   }
 
   createClass(EffectComposer$$1, [{
+    key: 'dispose',
+    value: function dispose() {
+      this.renderTarget1.dispose();
+      this.renderTarget2.dispose();
+      for (var i = 0; i < this.passes.length; ++i) {
+        var pass = this.passes[i];
+        if (pass.dispose) {
+          pass.dispose();
+        }
+      }
+    }
+  }, {
+    key: 'addPass',
+    value: function addPass(pass) {
+      this.passes.push(pass);
+
+      var _renderer$getSize = this.renderer.getSize(),
+          width = _renderer$getSize.width,
+          height = _renderer$getSize.height;
+
+      var pixelRatio = this.renderer.getPixelRatio();
+      pass.setSize(width, height, pixelRatio);
+    }
+  }, {
+    key: 'insertPass',
+    value: function insertPass(pass, index) {
+      this.passes.splice(index, 0, pass);
+
+      var _renderer$getSize2 = this.renderer.getSize(),
+          width = _renderer$getSize2.width,
+          height = _renderer$getSize2.height;
+
+      var pixelRatio = this.renderer.getPixelRatio();
+      pass.setSize(width, height, pixelRatio);
+    }
+  }, {
     key: 'setSize',
     value: function setSize(width, height) {
       var pixelRatio = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
@@ -1185,18 +1230,6 @@ var EffectComposer$1 = function (_Three$EffectComposer) {
 
       for (var i = 0; i < this.passes.length; ++i) {
         this.passes[i].setSize(width, height, pixelRatio);
-      }
-    }
-  }, {
-    key: 'dispose',
-    value: function dispose() {
-      this.renderTarget1.dispose();
-      this.renderTarget2.dispose();
-      for (var i = 0; i < this.passes.length; ++i) {
-        var pass = this.passes[i];
-        if (pass.dispose) {
-          pass.dispose();
-        }
       }
     }
   }]);
