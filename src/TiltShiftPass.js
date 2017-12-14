@@ -73,10 +73,10 @@ export default class TiltShiftPass extends Three.Pass {
       camera,
       material,
     } = this
-    material.uniforms.tDiffuse.value = readBuffer
+    material.uniforms.tDiffuse.value = readBuffer.texture
     material.uniforms.direction.value.set(1, 0)
     renderer.render(scene, camera, writeBuffer, this.clear)
-    material.uniforms.tDiffuse.value = writeBuffer
+    material.uniforms.tDiffuse.value = writeBuffer.texture
     material.uniforms.direction.value.set(0, 1)
     if (this.renderToScreen) {
       renderer.render(scene, camera, undefined, this.clear)
