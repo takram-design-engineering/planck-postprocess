@@ -34,7 +34,13 @@ export default class BloomPass extends Three.UnrealBloomPass {
     radius = 0.5,
     threshold = 0.5,
   } = {}) {
-    const resolution = new Three.Vector2(width || 256, height || 256)
+    // UnrealBloomPass divides the resolution by 2 for the bright render target
+    // and the largest mipmap target, that makes light bleeding much visible.
+    // Use the twice larger resolution here to minimize that.
+    const resolution = new Three.Vector2(
+      (width || 256) * 2,
+      (height || 256) * 2,
+    )
     super(resolution, strength, radius, threshold)
     this.needsSeparateRender = false
     this.separateCamera = null
@@ -115,4 +121,9 @@ export default class BloomPass extends Three.UnrealBloomPass {
       renderer.setClearColor(clearColor, clearAlpha)
     }
   }
+
+	setSize(width, height) {
+    // The same discussion in the constructor
+    super.setSize(width * 2, height * 2)
+	}
 }
