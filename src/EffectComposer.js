@@ -25,6 +25,8 @@
 import * as Three from 'three'
 
 import 'three/examples/js/postprocessing/EffectComposer'
+import 'three/examples/js/postprocessing/ShaderPass'
+import 'three/examples/js/shaders/CopyShader'
 
 export default class EffectComposer extends Three.EffectComposer {
   setSize(width, height, pixelRatio = 1) {
