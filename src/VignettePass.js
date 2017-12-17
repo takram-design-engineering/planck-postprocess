@@ -24,28 +24,38 @@
 
 import * as Three from 'three'
 
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/postprocessing/ShaderPass'
+import ShaderPass from './ShaderPass'
 
 import fragmentShader from './shader/vignette_frag.glsl'
 import noiseImage from './image/noise.png'
 import vertexShader from './shader/vignette_vert.glsl'
 
-export default class VignettePass extends Three.ShaderPass {
-  constructor() {
-    const uniforms = {
-      tDiffuse: { value: null },
-      tNoise: { value: null },
-      size: { value: new Three.Vector2() },
-      amount: { value: 1 },
-    }
-    const shader = { uniforms, vertexShader, fragmentShader }
-    super(shader)
+export default class VignettePass extends ShaderPass {
+  constructor(width = 256, height = 256, pixelRatio = 1, amount = 1) {
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
+    super({
+      uniforms: {
+        tDiffuse: { value: null },
+        tNoise: { value: null },
+        resolution: { value: new Three.Vector2(deviceWidth, deviceHeight) },
+        amount: { value: amount },
+      },
+      vertexShader,
+      fragmentShader,
+    })
     this.uniforms.tNoise.value = new Three.TextureLoader().load(noiseImage)
   }
 
-  setSize(width, height) {
-    this.uniforms.size.value.set(width, height)
+  dispose() {
+    super.dispose()
+    this.uniforms.tNoise.value.dispose()
+  }
+
+  setSize(width, height, pixelRatio = 1) {
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
+    this.uniforms.resolution.value.set(deviceWidth, deviceHeight)
   }
 
   get amount() {

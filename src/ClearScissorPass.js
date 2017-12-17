@@ -22,31 +22,18 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import templateString from 'es6-template-string'
+import * as Three from 'three'
 
-import TiltShiftPass from './TiltShiftPass'
-
-import fragmentShader from './shader/tilt_shift_vertical_frag.glsl'
-import vertexShader from './shader/tilt_shift_vertical_vert.glsl'
-
-export default class TiltShiftVerticalPass extends TiltShiftPass {
-  constructor({ size = 9, amount = 9, center = 0 } = {}) {
-    const uniforms = {
-      tDiffuse: { value: null },
-      amount: { value: 1 / 512 },
-      center: { value: 0.5 },
-      limit: { value: 1 / 256 },
-    }
-    const shader = {
-      uniforms,
-      vertexShader,
-      fragmentShader: templateString(fragmentShader, { size }),
-    }
-    super(shader, { amount, center })
+export default class ClearScissorPass extends Three.Pass {
+  constructor() {
+    super()
+    this.needsSwap = false
   }
 
-  setSize(width, height) {
-    this.denominator = 1000 * width / height
-    super.setSize(width, height)
+  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
+    // eslint-disable-next-line no-param-reassign
+    readBuffer.scissorTest = false
+    // eslint-disable-next-line no-param-reassign
+    writeBuffer.scissorTest = false
   }
 }

@@ -1,4 +1,4 @@
-//
+
 //  The MIT License
 //
 //  Copyright (C) 2016-Present Shota Matsuda
@@ -24,44 +24,39 @@
 
 import * as Three from 'three'
 
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/postprocessing/ShaderPass'
-
-import Namespace from '@takram/planck-core/src/Namespace'
-
-export const internal = Namespace('BlurPass')
-
-export default class BlurPass extends Three.ShaderPass {
-  constructor(shader, { amount = 9 } = {}) {
-    super(shader)
-    const scope = internal(this)
-    scope.denominator = 1000
-    scope.amount = amount
+export default class ScissorPass extends Three.Pass {
+  constructor(scissor) {
+    super()
+    this.scissor = scissor
+    this.needsSwap = false
   }
 
-  setSize(width, height) {
-    this.denominator = 1000 * width / height
-  }
-
-  get denominator() {
-    const scope = internal(this)
-    return scope.denominator
-  }
-
-  set denominator(value) {
-    const scope = internal(this)
-    scope.denominator = value
-    this.uniforms.amount.value = this.amount / value
-  }
-
-  get amount() {
-    const scope = internal(this)
-    return scope.amount
-  }
-
-  set amount(value) {
-    const scope = internal(this)
-    scope.amount = value
-    this.uniforms.amount.value = value / this.denominator
+  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
+    const { scissor } = this
+    if (scissor) {
+      let {
+        x,
+        y,
+        z,
+        w,
+      } = scissor
+      if (scissor.width !== undefined && scissor.height !== undefined) {
+        const { height } = renderer.getSize()
+        y = height - y - scissor.height
+        z = scissor.width
+        w = scissor.height
+      }
+      const pixelRatio = renderer.getPixelRatio()
+      x *= pixelRatio
+      y *= pixelRatio
+      z *= pixelRatio
+      w *= pixelRatio
+      // eslint-disable-next-line no-param-reassign
+      readBuffer.scissorTest = true
+      readBuffer.scissor.set(x, y, z, w)
+      // eslint-disable-next-line no-param-reassign
+      writeBuffer.scissorTest = true
+      writeBuffer.scissor.set(x, y, z, w)
+    }
   }
 }

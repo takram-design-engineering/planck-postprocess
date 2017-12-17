@@ -23,43 +23,64 @@
 //
 
 import * as Three from 'three'
-import templateString from 'es6-template-string'
-
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/postprocessing/ShaderPass'
-import 'three/examples/js/shaders/FXAAShader'
 
 import fragmentShader from './shader/fxaa_frag.glsl'
-import fxaaShader from './shader/fxaa.glsl'
+import ShaderPass from './ShaderPass'
 import vertexShader from './shader/fxaa_vert.glsl'
 
-export default class FXAAPass extends Three.ShaderPass {
-  constructor({
-    quality = 12,
+export default class FXAAPass extends ShaderPass {
+  constructor(width = 256, height = 256, pixelRatio = 1, quality = 12, {
     subpix = 0.75,
     edgeThreshold = 0.125,
     edgeThresholdMin = 0.0625,
   } = {}) {
-    const uniforms = {
-      tDiffuse: { value: null },
-      resolution: { value: new Three.Vector2(1 / 512, 1 / 512) },
-    }
-    // eslint-disable-next-line no-unused-vars
-    const shader = {
-      uniforms,
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
+    super({
+      defines: {
+        FXAA_QUALITY_PRESET: quality,
+      },
+      uniforms: {
+        tDiffuse: { value: null },
+        resolution: {
+          value: new Three.Vector2(1 / deviceWidth, 1 / deviceHeight),
+        },
+        subpix: { value: subpix },
+        edgeThreshold: { value: edgeThreshold },
+        edgeThresholdMin: { value: edgeThresholdMin },
+      },
       vertexShader,
-      fragmentShader: templateString(fragmentShader, {
-        fxaaShader,
-        quality,
-        subpix,
-        edgeThreshold,
-        edgeThresholdMin,
-      }),
-    }
-    super(Three.FXAAShader)
+      fragmentShader,
+    })
   }
 
-  setSize(width, height) {
-    this.uniforms.resolution.value.set(1 / width, 1 / height)
+  setSize(width, height, pixelRatio = 1) {
+    const deviceWidth = width * pixelRatio
+    const deviceHeight = height * pixelRatio
+    this.uniforms.resolution.value.set(1 / deviceWidth, 1 / deviceHeight)
+  }
+
+  get subpix() {
+    return this.uniforms.subpix.value
+  }
+
+  set subpix(value) {
+    this.uniforms.subpix.value = value
+  }
+
+  get edgeThreshold() {
+    return this.uniforms.edgeThreshold.value
+  }
+
+  set edgeThreshold(value) {
+    this.uniforms.edgeThreshold.value = value
+  }
+
+  get edgeThresholdMin() {
+    return this.uniforms.edgeThresholdMin.value
+  }
+
+  set edgeThresholdMin(value) {
+    this.uniforms.edgeThresholdMin.value = value
   }
 }
