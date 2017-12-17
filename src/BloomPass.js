@@ -119,8 +119,8 @@ export default class BloomPass extends Three.UnrealBloomPass {
     }
   }
 
-	setSize(width, height) {
+  setSize(width, height) {
     // The same discussion in the constructor
     super.setSize(width * 2, height * 2)
-	}
+  }
 }
