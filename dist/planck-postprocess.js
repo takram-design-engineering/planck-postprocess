@@ -698,29 +698,8 @@ var toConsumableArray = function (arr) {
   }
 };
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var BloomPass = function (_Three$UnrealBloomPas) {
   inherits(BloomPass, _Three$UnrealBloomPas);
@@ -838,29 +817,8 @@ var BloomPass = function (_Three$UnrealBloomPas) {
   return BloomPass;
 }(Three.UnrealBloomPass);
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var ClearScissorPass = function (_Three$Pass) {
   inherits(ClearScissorPass, _Three$Pass);
@@ -888,29 +846,8 @@ var ClearScissorPass = function (_Three$Pass) {
 
 var fragmentShader = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#define FXAA_GLSL_100 1\n#define FXAA_GREEN_AS_LUMA 1\n\n//\n//  File:        es3-kepler\\FXAA/FXAA3_11.h\n//  SDK Version: v3.00\n//  Email:       gameworks@nvidia.com\n//  Site:        http://developer.nvidia.com/\n//\n//  Copyright (c) 2014-2015, NVIDIA CORPORATION. All rights reserved.\n//\n//  Redistribution and use in source and binary forms, with or without\n//  modification, are permitted provided that the following conditions\n//  are met:\n//   * Redistributions of source code must retain the above copyright\n//     notice, this list of conditions and the following disclaimer.\n//   * Redistributions in binary form must reproduce the above copyright\n//     notice, this list of conditions and the following disclaimer in the\n//     documentation and/or other materials provided with the distribution.\n//   * Neither the name of NVIDIA CORPORATION nor the names of its\n//     contributors may be used to endorse or promote products derived\n//     from this software without specific prior written permission.\n//\n//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY\n//  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\n//  PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR\n//  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n//  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n//  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR\n//  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY\n//  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n//  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n//  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n//\n\n#ifndef FXAA_GLSL_100\n  #define FXAA_GLSL_100 0\n#endif\n\n#ifndef FXAA_GLSL_120\n  #define FXAA_GLSL_120 0\n#endif\n\n#ifndef FXAA_GLSL_130\n  #define FXAA_GLSL_130 0\n#endif\n\n// -----------------------------------------------------------------------------\n\n// For those using non-linear color, and either not able to get luma in alpha,\n// or not wanting to, this enables FXAA to run using green as a proxy for luma.\n// So with this enabled, no need to pack luma in alpha.\n//\n// This will turn off AA on anything which lacks some amount of green. Pure red\n// and blue or combination of only R and B, will get no AA.\n//\n// Might want to lower the settings for both,\n//   fxaaConsoleEdgeThresholdMin\n//   fxaaQualityEdgeThresholdMin\n// In order to insure AA does not get turned off on colors which contain a minor\n// amount of green.\n//\n// 1 = On\n// 0 = Off\n#ifndef FXAA_GREEN_AS_LUMA\n  #define FXAA_GREEN_AS_LUMA 0\n#endif\n\n// Probably will not work when FXAA_GREEN_AS_LUMA = 1.\n// 1 = Use discard on pixels which don't need AA. For APIs which enable\n//     concurrent TEX+ROP from same surface.\n// 0 = Return unchanged color on pixels which don't need AA.\n#ifndef FXAA_DISCARD\n  #define FXAA_DISCARD 0\n#endif\n\n// Used for GLSL 120 only.\n//\n// 1 = GL API supports fast pixel offsets\n// 0 = do not use fast pixel offsets\n#ifndef FXAA_FAST_PIXEL_OFFSET\n  #ifdef GL_EXT_gpu_shader4\n    #define FXAA_FAST_PIXEL_OFFSET 1\n  #endif\n  #ifdef GL_NV_gpu_shader5\n    #define FXAA_FAST_PIXEL_OFFSET 1\n  #endif\n  #ifdef GL_ARB_gpu_shader5\n    #define FXAA_FAST_PIXEL_OFFSET 1\n  #endif\n  #ifndef FXAA_FAST_PIXEL_OFFSET\n    #define FXAA_FAST_PIXEL_OFFSET 0\n  #endif\n#endif\n\n// 1 = API supports gather4 on alpha channel.\n// 0 = API does not support gather4 on alpha channel.\n#ifndef FXAA_GATHER4_ALPHA\n  #ifdef GL_ARB_gpu_shader5\n    #define FXAA_GATHER4_ALPHA 1\n  #endif\n  #ifdef GL_NV_gpu_shader5\n    #define FXAA_GATHER4_ALPHA 1\n  #endif\n  #ifndef FXAA_GATHER4_ALPHA\n    #define FXAA_GATHER4_ALPHA 0\n  #endif\n#endif\n\n// -----------------------------------------------------------------------------\n//  FXAA QUALITY - TUNING KNOBS\n// -----------------------------------------------------------------------------\n\n// Choose the quality preset. This needs to be compiled into the shader as it\n// effects code. Best option to include multiple presets is to in each shader\n// define the preset, then include this file.\n//\n// OPTIONS\n// 10 to 15 - default medium dither (10 = fastest, 15 = highest quality)\n// 20 to 29 - less dither, more expensive (20 = fastest, 29 = highest quality)\n// 39       - no dither, very expensive\n//\n// NOTES\n// 12 = slightly faster then FXAA 3.9 and higher edge quality (default)\n// 13 = about same speed as FXAA 3.9 and better than 12\n// 23 = closest to FXAA 3.9 visually and performance wise\n//  _ = the lowest digit is directly related to performance\n// _  = the highest digit is directly related to style\n#ifndef FXAA_QUALITY_PRESET\n  #define FXAA_QUALITY_PRESET 12\n#endif\n\n// -----------------------------------------------------------------------------\n//  FXAA QUALITY - PRESETS\n\n// -----------------------------------------------------------------------------\n//  FXAA QUALITY - MEDIUM DITHER PRESETS\n\n#if (FXAA_QUALITY_PRESET == 10)\n  #define FXAA_QUALITY_PS 3\n  #define FXAA_QUALITY_P0 1.5\n  #define FXAA_QUALITY_P1 3.0\n  #define FXAA_QUALITY_P2 12.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 11)\n  #define FXAA_QUALITY_PS 4\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 3.0\n  #define FXAA_QUALITY_P3 12.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 12)\n  #define FXAA_QUALITY_PS 5\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 4.0\n  #define FXAA_QUALITY_P4 12.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 13)\n  #define FXAA_QUALITY_PS 6\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 4.0\n  #define FXAA_QUALITY_P5 12.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 14)\n  #define FXAA_QUALITY_PS 7\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 4.0\n  #define FXAA_QUALITY_P6 12.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 15)\n  #define FXAA_QUALITY_PS 8\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 2.0\n  #define FXAA_QUALITY_P6 4.0\n  #define FXAA_QUALITY_P7 12.0\n#endif\n\n// -----------------------------------------------------------------------------\n//  FXAA QUALITY - LOW DITHER PRESETS\n\n#if (FXAA_QUALITY_PRESET == 20)\n  #define FXAA_QUALITY_PS 3\n  #define FXAA_QUALITY_P0 1.5\n  #define FXAA_QUALITY_P1 2.0\n  #define FXAA_QUALITY_P2 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 21)\n  #define FXAA_QUALITY_PS 4\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 22)\n  #define FXAA_QUALITY_PS 5\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 23)\n  #define FXAA_QUALITY_PS 6\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 24)\n  #define FXAA_QUALITY_PS 7\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 3.0\n  #define FXAA_QUALITY_P6 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 25)\n  #define FXAA_QUALITY_PS 8\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 2.0\n  #define FXAA_QUALITY_P6 4.0\n  #define FXAA_QUALITY_P7 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 26)\n  #define FXAA_QUALITY_PS 9\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 2.0\n  #define FXAA_QUALITY_P6 2.0\n  #define FXAA_QUALITY_P7 4.0\n  #define FXAA_QUALITY_P8 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 27)\n  #define FXAA_QUALITY_PS 10\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 2.0\n  #define FXAA_QUALITY_P6 2.0\n  #define FXAA_QUALITY_P7 2.0\n  #define FXAA_QUALITY_P8 4.0\n  #define FXAA_QUALITY_P9 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 28)\n  #define FXAA_QUALITY_PS 11\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 2.0\n  #define FXAA_QUALITY_P6 2.0\n  #define FXAA_QUALITY_P7 2.0\n  #define FXAA_QUALITY_P8 2.0\n  #define FXAA_QUALITY_P9 4.0\n  #define FXAA_QUALITY_P10 8.0\n#endif\n\n#if (FXAA_QUALITY_PRESET == 29)\n  #define FXAA_QUALITY_PS 12\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.5\n  #define FXAA_QUALITY_P2 2.0\n  #define FXAA_QUALITY_P3 2.0\n  #define FXAA_QUALITY_P4 2.0\n  #define FXAA_QUALITY_P5 2.0\n  #define FXAA_QUALITY_P6 2.0\n  #define FXAA_QUALITY_P7 2.0\n  #define FXAA_QUALITY_P8 2.0\n  #define FXAA_QUALITY_P9 2.0\n  #define FXAA_QUALITY_P10 4.0\n  #define FXAA_QUALITY_P11 8.0\n#endif\n\n// -----------------------------------------------------------------------------\n//  FXAA QUALITY - EXTREME QUALITY\n\n#if (FXAA_QUALITY_PRESET == 39)\n  #define FXAA_QUALITY_PS 12\n  #define FXAA_QUALITY_P0 1.0\n  #define FXAA_QUALITY_P1 1.0\n  #define FXAA_QUALITY_P2 1.0\n  #define FXAA_QUALITY_P3 1.0\n  #define FXAA_QUALITY_P4 1.0\n  #define FXAA_QUALITY_P5 1.5\n  #define FXAA_QUALITY_P6 2.0\n  #define FXAA_QUALITY_P7 2.0\n  #define FXAA_QUALITY_P8 2.0\n  #define FXAA_QUALITY_P9 2.0\n  #define FXAA_QUALITY_P10 4.0\n  #define FXAA_QUALITY_P11 8.0\n#endif\n\n// -----------------------------------------------------------------------------\n//  API PORTING\n\n#if (FXAA_GLSL_100 == 1) || (FXAA_GLSL_120 == 1) || (FXAA_GLSL_130 == 1)\n  #define FxaaBool bool\n  #define FxaaDiscard discard\n  #define FxaaFloat float\n  #define FxaaFloat2 vec2\n  #define FxaaFloat3 vec3\n  #define FxaaFloat4 vec4\n  #define FxaaHalf float\n  #define FxaaHalf2 vec2\n  #define FxaaHalf3 vec3\n  #define FxaaHalf4 vec4\n  #define FxaaInt2 ivec2\n  #define FxaaSat(x) clamp(x, 0.0, 1.0)\n  #define FxaaTex sampler2D\n#else\n  #define FxaaBool bool\n  #define FxaaDiscard clip(-1)\n  #define FxaaFloat float\n  #define FxaaFloat2 float2\n  #define FxaaFloat3 float3\n  #define FxaaFloat4 float4\n  #define FxaaHalf half\n  #define FxaaHalf2 half2\n  #define FxaaHalf3 half3\n  #define FxaaHalf4 half4\n  #define FxaaSat(x) saturate(x)\n#endif\n\n// -----------------------------------------------------------------------------\n\n#if (FXAA_GLSL_100 == 1)\n  #define FxaaTexTop(t, p) texture2D(t, p, 0.0)\n  #define FxaaTexOff(t, p, o, r) texture2D(t, p + (o * r), 0.0)\n#endif\n\n// -----------------------------------------------------------------------------\n\n#if (FXAA_GLSL_120 == 1)\n  // Requires,\n  //  #version 120\n  // And at least,\n  //  #extension GL_EXT_gpu_shader4 : enable\n  //  (or set FXAA_FAST_PIXEL_OFFSET 1 to work like DX9)\n  #define FxaaTexTop(t, p) texture2DLod(t, p, 0.0)\n  #if (FXAA_FAST_PIXEL_OFFSET == 1)\n    #define FxaaTexOff(t, p, o, r) texture2DLodOffset(t, p, 0.0, o)\n  #else\n    #define FxaaTexOff(t, p, o, r) texture2DLod(t, p + (o * r), 0.0)\n  #endif\n  #if (FXAA_GATHER4_ALPHA == 1)\n    // use #extension GL_ARB_gpu_shader5 : enable\n    #define FxaaTexAlpha4(t, p) textureGather(t, p, 3)\n    #define FxaaTexOffAlpha4(t, p, o) textureGatherOffset(t, p, o, 3)\n    #define FxaaTexGreen4(t, p) textureGather(t, p, 1)\n    #define FxaaTexOffGreen4(t, p, o) textureGatherOffset(t, p, o, 1)\n  #endif\n#endif\n\n// -----------------------------------------------------------------------------\n\n#if (FXAA_GLSL_130 == 1)\n  // Requires \"#version 130\" or better\n  #define FxaaTexTop(t, p) textureLod(t, p, 0.0)\n  #define FxaaTexOff(t, p, o, r) textureLodOffset(t, p, 0.0, o)\n  #if (FXAA_GATHER4_ALPHA == 1)\n    // use #extension GL_ARB_gpu_shader5 : enable\n    #define FxaaTexAlpha4(t, p) textureGather(t, p, 3)\n    #define FxaaTexOffAlpha4(t, p, o) textureGatherOffset(t, p, o, 3)\n    #define FxaaTexGreen4(t, p) textureGather(t, p, 1)\n    #define FxaaTexOffGreen4(t, p, o) textureGatherOffset(t, p, o, 1)\n  #endif\n#endif\n\n// -----------------------------------------------------------------------------\n//  GREEN AS LUMA OPTION SUPPORT FUNCTION\n\n#if (FXAA_GREEN_AS_LUMA == 0)\n  FxaaFloat FxaaLuma(FxaaFloat4 rgba) { return rgba.w; }\n#else\n  FxaaFloat FxaaLuma(FxaaFloat4 rgba) { return rgba.y; }\n#endif\n\n// -----------------------------------------------------------------------------\n//  FXAA3 QUALITY - PC\n\nFxaaFloat4 FxaaPixelShader(\n  // Use noperspective interpolation here (turn off perspective interpolation).\n  // {xy} = center of pixel\n  FxaaFloat2 pos,\n\n  // Input color texture.\n  // {rgb_} = color in linear or perceptual color space\n  // if (FXAA_GREEN_AS_LUMA == 0)\n  //   {___a} = luma in perceptual color space (not linear)\n  FxaaTex tex,\n\n  // Only used on FXAA Quality.\n  // This must be from a constant/uniform.\n  // {x_} = 1.0/screenWidthInPixels\n  // {_y} = 1.0/screenHeightInPixels\n  FxaaFloat2 fxaaQualityRcpFrame,\n\n  // Only used on FXAA Quality.\n  // This used to be the FXAA_QUALITY_SUBPIX define.\n  // It is here now to allow easier tuning.\n  // Choose the amount of sub-pixel aliasing removal.\n  // This can effect sharpness.\n  //   1.00 - upper limit (softer)\n  //   0.75 - default amount of filtering\n  //   0.50 - lower limit (sharper, less sub-pixel aliasing removal)\n  //   0.25 - almost off\n  //   0.00 - completely off\n  FxaaFloat fxaaQualitySubpix,\n\n  // Only used on FXAA Quality.\n  // This used to be the FXAA_QUALITY_EDGE_THRESHOLD define.\n  // It is here now to allow easier tuning.\n  // The minimum amount of local contrast required to apply algorithm.\n  //   0.333 - too little (faster)\n  //   0.250 - low quality\n  //   0.166 - default\n  //   0.125 - high quality\n  //   0.063 - overkill (slower)\n  FxaaFloat fxaaQualityEdgeThreshold,\n\n  // Only used on FXAA Quality.\n  // This used to be the FXAA_QUALITY_EDGE_THRESHOLD_MIN define.\n  // It is here now to allow easier tuning.\n  // Trims the algorithm from processing darks.\n  //   0.0833 - upper limit (default, the start of visible unfiltered edges)\n  //   0.0625 - high quality (faster)\n  //   0.0312 - visible limit (slower)\n  // Special notes when using FXAA_GREEN_AS_LUMA,\n  //   Likely want to set this to zero.\n  //   As colors that are mostly not-green\n  //   will appear very dark in the green channel!\n  //   Tune by looking at mostly non-green content,\n  //   then start at zero and increase until aliasing is a problem.\n  FxaaFloat fxaaQualityEdgeThresholdMin\n) {\n// -----------------------------------------------------------------------------\n  FxaaFloat2 posM;\n  posM.x = pos.x;\n  posM.y = pos.y;\n  #if (FXAA_GATHER4_ALPHA == 1)\n    #if (FXAA_DISCARD == 0)\n      FxaaFloat4 rgbyM = FxaaTexTop(tex, posM);\n      #if (FXAA_GREEN_AS_LUMA == 0)\n        #define lumaM rgbyM.w\n      #else\n        #define lumaM rgbyM.y\n      #endif\n    #endif\n    #if (FXAA_GREEN_AS_LUMA == 0)\n      FxaaFloat4 luma4A = FxaaTexAlpha4(tex, posM);\n      FxaaFloat4 luma4B = FxaaTexOffAlpha4(tex, posM, FxaaInt2(-1, -1));\n    #else\n      FxaaFloat4 luma4A = FxaaTexGreen4(tex, posM);\n      FxaaFloat4 luma4B = FxaaTexOffGreen4(tex, posM, FxaaInt2(-1, -1));\n    #endif\n    #if (FXAA_DISCARD == 1)\n      #define lumaM luma4A.w\n    #endif\n    #define lumaE luma4A.z\n    #define lumaS luma4A.x\n    #define lumaSE luma4A.y\n    #define lumaNW luma4B.w\n    #define lumaN luma4B.z\n    #define lumaW luma4B.x\n  #else\n    FxaaFloat4 rgbyM = FxaaTexTop(tex, posM);\n    #if (FXAA_GREEN_AS_LUMA == 0)\n      #define lumaM rgbyM.w\n    #else\n      #define lumaM rgbyM.y\n    #endif\n      #if (FXAA_GLSL_100 == 1)\n        FxaaFloat lumaS = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2( 0.0, 1.0), fxaaQualityRcpFrame.xy));\n        FxaaFloat lumaE = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2( 1.0, 0.0), fxaaQualityRcpFrame.xy));\n        FxaaFloat lumaN = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2( 0.0,-1.0), fxaaQualityRcpFrame.xy));\n        FxaaFloat lumaW = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2(-1.0, 0.0), fxaaQualityRcpFrame.xy));\n      #else\n        FxaaFloat lumaS = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 0, 1), fxaaQualityRcpFrame.xy));\n        FxaaFloat lumaE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 1, 0), fxaaQualityRcpFrame.xy));\n        FxaaFloat lumaN = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 0,-1), fxaaQualityRcpFrame.xy));\n        FxaaFloat lumaW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1, 0), fxaaQualityRcpFrame.xy));\n      #endif\n  #endif\n// -----------------------------------------------------------------------------\n  FxaaFloat maxSM = max(lumaS, lumaM);\n  FxaaFloat minSM = min(lumaS, lumaM);\n  FxaaFloat maxESM = max(lumaE, maxSM);\n  FxaaFloat minESM = min(lumaE, minSM);\n  FxaaFloat maxWN = max(lumaN, lumaW);\n  FxaaFloat minWN = min(lumaN, lumaW);\n  FxaaFloat rangeMax = max(maxWN, maxESM);\n  FxaaFloat rangeMin = min(minWN, minESM);\n  FxaaFloat rangeMaxScaled = rangeMax * fxaaQualityEdgeThreshold;\n  FxaaFloat range = rangeMax - rangeMin;\n  FxaaFloat rangeMaxClamped = max(fxaaQualityEdgeThresholdMin, rangeMaxScaled);\n  FxaaBool earlyExit = range < rangeMaxClamped;\n// -----------------------------------------------------------------------------\n  if(earlyExit)\n    #if (FXAA_DISCARD == 1)\n      FxaaDiscard;\n    #else\n      return rgbyM;\n    #endif\n// -----------------------------------------------------------------------------\n  #if (FXAA_GATHER4_ALPHA == 0)\n    #if (FXAA_GLSL_100 == 1)\n      FxaaFloat lumaNW = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2(-1.0,-1.0), fxaaQualityRcpFrame.xy));\n      FxaaFloat lumaSE = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2( 1.0, 1.0), fxaaQualityRcpFrame.xy));\n      FxaaFloat lumaNE = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2( 1.0,-1.0), fxaaQualityRcpFrame.xy));\n      FxaaFloat lumaSW = FxaaLuma(FxaaTexOff(tex, posM, FxaaFloat2(-1.0, 1.0), fxaaQualityRcpFrame.xy));\n    #else\n      FxaaFloat lumaNW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1,-1), fxaaQualityRcpFrame.xy));\n      FxaaFloat lumaSE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 1, 1), fxaaQualityRcpFrame.xy));\n      FxaaFloat lumaNE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 1,-1), fxaaQualityRcpFrame.xy));\n      FxaaFloat lumaSW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1, 1), fxaaQualityRcpFrame.xy));\n    #endif\n  #else\n    FxaaFloat lumaNE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(1, -1), fxaaQualityRcpFrame.xy));\n    FxaaFloat lumaSW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1, 1), fxaaQualityRcpFrame.xy));\n  #endif\n// -----------------------------------------------------------------------------\n  FxaaFloat lumaNS = lumaN + lumaS;\n  FxaaFloat lumaWE = lumaW + lumaE;\n  FxaaFloat subpixRcpRange = 1.0/range;\n  FxaaFloat subpixNSWE = lumaNS + lumaWE;\n  FxaaFloat edgeHorz1 = (-2.0 * lumaM) + lumaNS;\n  FxaaFloat edgeVert1 = (-2.0 * lumaM) + lumaWE;\n// -----------------------------------------------------------------------------\n  FxaaFloat lumaNESE = lumaNE + lumaSE;\n  FxaaFloat lumaNWNE = lumaNW + lumaNE;\n  FxaaFloat edgeHorz2 = (-2.0 * lumaE) + lumaNESE;\n  FxaaFloat edgeVert2 = (-2.0 * lumaN) + lumaNWNE;\n// -----------------------------------------------------------------------------\n  FxaaFloat lumaNWSW = lumaNW + lumaSW;\n  FxaaFloat lumaSWSE = lumaSW + lumaSE;\n  FxaaFloat edgeHorz4 = (abs(edgeHorz1) * 2.0) + abs(edgeHorz2);\n  FxaaFloat edgeVert4 = (abs(edgeVert1) * 2.0) + abs(edgeVert2);\n  FxaaFloat edgeHorz3 = (-2.0 * lumaW) + lumaNWSW;\n  FxaaFloat edgeVert3 = (-2.0 * lumaS) + lumaSWSE;\n  FxaaFloat edgeHorz = abs(edgeHorz3) + edgeHorz4;\n  FxaaFloat edgeVert = abs(edgeVert3) + edgeVert4;\n// -----------------------------------------------------------------------------\n  FxaaFloat subpixNWSWNESE = lumaNWSW + lumaNESE;\n  FxaaFloat lengthSign = fxaaQualityRcpFrame.x;\n  FxaaBool horzSpan = edgeHorz >= edgeVert;\n  FxaaFloat subpixA = subpixNSWE * 2.0 + subpixNWSWNESE;\n// -----------------------------------------------------------------------------\n  if(!horzSpan) lumaN = lumaW;\n  if(!horzSpan) lumaS = lumaE;\n  if(horzSpan) lengthSign = fxaaQualityRcpFrame.y;\n  FxaaFloat subpixB = (subpixA * (1.0/12.0)) - lumaM;\n// -----------------------------------------------------------------------------\n  FxaaFloat gradientN = lumaN - lumaM;\n  FxaaFloat gradientS = lumaS - lumaM;\n  FxaaFloat lumaNN = lumaN + lumaM;\n  FxaaFloat lumaSS = lumaS + lumaM;\n  FxaaBool pairN = abs(gradientN) >= abs(gradientS);\n  FxaaFloat gradient = max(abs(gradientN), abs(gradientS));\n  if(pairN) lengthSign = -lengthSign;\n  FxaaFloat subpixC = FxaaSat(abs(subpixB) * subpixRcpRange);\n// -----------------------------------------------------------------------------\n  FxaaFloat2 posB;\n  posB.x = posM.x;\n  posB.y = posM.y;\n  FxaaFloat2 offNP;\n  offNP.x = (!horzSpan) ? 0.0 : fxaaQualityRcpFrame.x;\n  offNP.y = ( horzSpan) ? 0.0 : fxaaQualityRcpFrame.y;\n  if(!horzSpan) posB.x += lengthSign * 0.5;\n  if( horzSpan) posB.y += lengthSign * 0.5;\n// -----------------------------------------------------------------------------\n  FxaaFloat2 posN;\n  posN.x = posB.x - offNP.x * FXAA_QUALITY_P0;\n  posN.y = posB.y - offNP.y * FXAA_QUALITY_P0;\n  FxaaFloat2 posP;\n  posP.x = posB.x + offNP.x * FXAA_QUALITY_P0;\n  posP.y = posB.y + offNP.y * FXAA_QUALITY_P0;\n  FxaaFloat subpixD = ((-2.0)*subpixC) + 3.0;\n  FxaaFloat lumaEndN = FxaaLuma(FxaaTexTop(tex, posN));\n  FxaaFloat subpixE = subpixC * subpixC;\n  FxaaFloat lumaEndP = FxaaLuma(FxaaTexTop(tex, posP));\n// -----------------------------------------------------------------------------\n  if(!pairN) lumaNN = lumaSS;\n  FxaaFloat gradientScaled = gradient * 1.0/4.0;\n  FxaaFloat lumaMM = lumaM - lumaNN * 0.5;\n  FxaaFloat subpixF = subpixD * subpixE;\n  FxaaBool lumaMLTZero = lumaMM < 0.0;\n// -----------------------------------------------------------------------------\n  lumaEndN -= lumaNN * 0.5;\n  lumaEndP -= lumaNN * 0.5;\n  FxaaBool doneN = abs(lumaEndN) >= gradientScaled;\n  FxaaBool doneP = abs(lumaEndP) >= gradientScaled;\n  if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P1;\n  if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P1;\n  FxaaBool doneNP = (!doneN) || (!doneP);\n  if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P1;\n  if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P1;\n// -----------------------------------------------------------------------------\n  if(doneNP) {\n    if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n    if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n    if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n    if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n    doneN = abs(lumaEndN) >= gradientScaled;\n    doneP = abs(lumaEndP) >= gradientScaled;\n    if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P2;\n    if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P2;\n    doneNP = (!doneN) || (!doneP);\n    if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P2;\n    if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P2;\n// -----------------------------------------------------------------------------\n    #if (FXAA_QUALITY_PS > 3)\n    if(doneNP) {\n      if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n      if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n      if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n      if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n      doneN = abs(lumaEndN) >= gradientScaled;\n      doneP = abs(lumaEndP) >= gradientScaled;\n      if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P3;\n      if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P3;\n      doneNP = (!doneN) || (!doneP);\n      if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P3;\n      if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P3;\n// -----------------------------------------------------------------------------\n      #if (FXAA_QUALITY_PS > 4)\n      if(doneNP) {\n        if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n        if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n        if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n        if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n        doneN = abs(lumaEndN) >= gradientScaled;\n        doneP = abs(lumaEndP) >= gradientScaled;\n        if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P4;\n        if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P4;\n        doneNP = (!doneN) || (!doneP);\n        if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P4;\n        if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P4;\n// -----------------------------------------------------------------------------\n        #if (FXAA_QUALITY_PS > 5)\n        if(doneNP) {\n          if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n          if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n          if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n          if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n          doneN = abs(lumaEndN) >= gradientScaled;\n          doneP = abs(lumaEndP) >= gradientScaled;\n          if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P5;\n          if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P5;\n          doneNP = (!doneN) || (!doneP);\n          if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P5;\n          if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P5;\n// -----------------------------------------------------------------------------\n          #if (FXAA_QUALITY_PS > 6)\n          if(doneNP) {\n            if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n            if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n            if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n            if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n            doneN = abs(lumaEndN) >= gradientScaled;\n            doneP = abs(lumaEndP) >= gradientScaled;\n            if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P6;\n            if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P6;\n            doneNP = (!doneN) || (!doneP);\n            if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P6;\n            if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P6;\n// -----------------------------------------------------------------------------\n            #if (FXAA_QUALITY_PS > 7)\n            if(doneNP) {\n              if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n              if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n              if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n              if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n              doneN = abs(lumaEndN) >= gradientScaled;\n              doneP = abs(lumaEndP) >= gradientScaled;\n              if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P7;\n              if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P7;\n              doneNP = (!doneN) || (!doneP);\n              if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P7;\n              if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P7;\n// -----------------------------------------------------------------------------\n  #if (FXAA_QUALITY_PS > 8)\n  if(doneNP) {\n    if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n    if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n    if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n    if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n    doneN = abs(lumaEndN) >= gradientScaled;\n    doneP = abs(lumaEndP) >= gradientScaled;\n    if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P8;\n    if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P8;\n    doneNP = (!doneN) || (!doneP);\n    if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P8;\n    if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P8;\n// -----------------------------------------------------------------------------\n    #if (FXAA_QUALITY_PS > 9)\n    if(doneNP) {\n      if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n      if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n      if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n      if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n      doneN = abs(lumaEndN) >= gradientScaled;\n      doneP = abs(lumaEndP) >= gradientScaled;\n      if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P9;\n      if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P9;\n      doneNP = (!doneN) || (!doneP);\n      if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P9;\n      if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P9;\n// -----------------------------------------------------------------------------\n      #if (FXAA_QUALITY_PS > 10)\n      if(doneNP) {\n        if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n        if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n        if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n        if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n        doneN = abs(lumaEndN) >= gradientScaled;\n        doneP = abs(lumaEndP) >= gradientScaled;\n        if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P10;\n        if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P10;\n        doneNP = (!doneN) || (!doneP);\n        if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P10;\n        if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P10;\n// -----------------------------------------------------------------------------\n        #if (FXAA_QUALITY_PS > 11)\n        if(doneNP) {\n          if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n          if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n          if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n          if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n          doneN = abs(lumaEndN) >= gradientScaled;\n          doneP = abs(lumaEndP) >= gradientScaled;\n          if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P11;\n          if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P11;\n          doneNP = (!doneN) || (!doneP);\n          if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P11;\n          if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P11;\n// -----------------------------------------------------------------------------\n          #if (FXAA_QUALITY_PS > 12)\n          if(doneNP) {\n            if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\n            if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\n            if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\n            if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\n            doneN = abs(lumaEndN) >= gradientScaled;\n            doneP = abs(lumaEndP) >= gradientScaled;\n            if(!doneN) posN.x -= offNP.x * FXAA_QUALITY_P12_1540259130;\n            if(!doneN) posN.y -= offNP.y * FXAA_QUALITY_P12_1540259130;\n            doneNP = (!doneN) || (!doneP);\n            if(!doneP) posP.x += offNP.x * FXAA_QUALITY_P12_1540259130;\n            if(!doneP) posP.y += offNP.y * FXAA_QUALITY_P12_1540259130;\n// -----------------------------------------------------------------------------\n          }\n          #endif\n// -----------------------------------------------------------------------------\n        }\n        #endif\n// -----------------------------------------------------------------------------\n      }\n      #endif\n// -----------------------------------------------------------------------------\n    }\n    #endif\n// -----------------------------------------------------------------------------\n  }\n  #endif\n// -----------------------------------------------------------------------------\n            }\n            #endif\n// -----------------------------------------------------------------------------\n          }\n          #endif\n// -----------------------------------------------------------------------------\n        }\n        #endif\n// -----------------------------------------------------------------------------\n      }\n      #endif\n// -----------------------------------------------------------------------------\n    }\n    #endif\n// -----------------------------------------------------------------------------\n  }\n// -----------------------------------------------------------------------------\n  FxaaFloat dstN = posM.x - posN.x;\n  FxaaFloat dstP = posP.x - posM.x;\n  if(!horzSpan) dstN = posM.y - posN.y;\n  if(!horzSpan) dstP = posP.y - posM.y;\n// -----------------------------------------------------------------------------\n  FxaaBool goodSpanN = (lumaEndN < 0.0) != lumaMLTZero;\n  FxaaFloat spanLength = (dstP + dstN);\n  FxaaBool goodSpanP = (lumaEndP < 0.0) != lumaMLTZero;\n  FxaaFloat spanLengthRcp = 1.0/spanLength;\n// -----------------------------------------------------------------------------\n  FxaaBool directionN = dstN < dstP;\n  FxaaFloat dst = min(dstN, dstP);\n  FxaaBool goodSpan = directionN ? goodSpanN : goodSpanP;\n  FxaaFloat subpixG = subpixF * subpixF;\n  FxaaFloat pixelOffset = (dst * (-spanLengthRcp)) + 0.5;\n  FxaaFloat subpixH = subpixG * fxaaQualitySubpix;\n// -----------------------------------------------------------------------------\n  FxaaFloat pixelOffsetGood = goodSpan ? pixelOffset : 0.0;\n  FxaaFloat pixelOffsetSubpix = max(pixelOffsetGood, subpixH);\n  if(!horzSpan) posM.x += pixelOffsetSubpix * lengthSign;\n  if( horzSpan) posM.y += pixelOffsetSubpix * lengthSign;\n  #if (FXAA_DISCARD == 1)\n    return FxaaTexTop(tex, posM);\n  #else\n    return FxaaFloat4(FxaaTexTop(tex, posM).xyz, lumaM);\n  #endif\n}\n\nuniform sampler2D tDiffuse;\nuniform vec2 resolution;\nuniform float subpix;\nuniform float edgeThreshold;\nuniform float edgeThresholdMin;\n\nvarying vec2 vUv;\n\nvoid main() {\n  gl_FragColor = FxaaPixelShader(\n      vUv,\n      tDiffuse,\n      resolution,\n      subpix,\n      edgeThreshold,\n      edgeThresholdMin);\n}\n";
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var ShaderPass = function (_Three$Pass) {
   inherits(ShaderPass, _Three$Pass);
@@ -969,29 +906,8 @@ var ShaderPass = function (_Three$Pass) {
 
 var vertexShader = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\nvarying vec2 vUv;\n\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}\n";
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var FXAAPass = function (_ShaderPass) {
   inherits(FXAAPass, _ShaderPass);
@@ -1155,39 +1071,18 @@ var FXAAPass = function (_ShaderPass) {
 	};
 })(Three);
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
-var EffectComposer$1 = function (_Three$EffectComposer) {
-  inherits(EffectComposer$$1, _Three$EffectComposer);
+var EffectComposer = function (_Three$EffectComposer) {
+  inherits(EffectComposer, _Three$EffectComposer);
 
-  function EffectComposer$$1() {
-    classCallCheck(this, EffectComposer$$1);
-    return possibleConstructorReturn(this, (EffectComposer$$1.__proto__ || Object.getPrototypeOf(EffectComposer$$1)).apply(this, arguments));
+  function EffectComposer() {
+    classCallCheck(this, EffectComposer);
+    return possibleConstructorReturn(this, (EffectComposer.__proto__ || Object.getPrototypeOf(EffectComposer)).apply(this, arguments));
   }
 
-  createClass(EffectComposer$$1, [{
+  createClass(EffectComposer, [{
     key: 'dispose',
     value: function dispose() {
       this.renderTarget1.dispose();
@@ -1238,36 +1133,15 @@ var EffectComposer$1 = function (_Three$EffectComposer) {
       }
     }
   }]);
-  return EffectComposer$$1;
+  return EffectComposer;
 }(Three.EffectComposer);
 
 var fragmentShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#ifndef KERNEL_SIZE\n  #define KERNEL_SIZE 9\n#endif\n\nuniform sampler2D tDiffuse;\nuniform vec2 resolution;\nuniform vec2 direction;\nuniform float radius;\nuniform float radiusMax;\nuniform float center;\nuniform float scale;\n\nvarying vec2 vUv;\n\nvoid main() {\n  vec4 color = vec4(0.0);\n  float gradient = pow(abs((center * 0.5 + 0.5) - vUv.y) * 2.0, 2.0);\n  vec2 aspect = vec2(resolution.y / resolution.x, 1.0);\n  vec2 amount = min(radius * gradient * aspect / scale, radiusMax);\n  vec2 offset = amount * direction;\n\n  #if KERNEL_SIZE == 9\n    color += texture2D(tDiffuse, vUv) * 0.162443;\n    color += texture2D(tDiffuse, vUv + offset) * 0.151793;\n    color += texture2D(tDiffuse, vUv - offset) * 0.151793;\n    color += texture2D(tDiffuse, vUv + offset * 2.0) * 0.123853;\n    color += texture2D(tDiffuse, vUv - offset * 2.0) * 0.123853;\n    color += texture2D(tDiffuse, vUv + offset * 3.0) * 0.08824;\n    color += texture2D(tDiffuse, vUv - offset * 3.0) * 0.08824;\n    color += texture2D(tDiffuse, vUv + offset * 4.0) * 0.0548925;\n    color += texture2D(tDiffuse, vUv - offset * 4.0) * 0.0548925;\n  #endif\n\n  #if KERNEL_SIZE == 7\n    color += texture2D(tDiffuse, vUv) * 0.182476;\n    color += texture2D(tDiffuse, vUv + offset) * 0.170513;\n    color += texture2D(tDiffuse, vUv - offset) * 0.170513;\n    color += texture2D(tDiffuse, vUv + offset * 2.0) * 0.139127;\n    color += texture2D(tDiffuse, vUv - offset * 2.0) * 0.139127;\n    color += texture2D(tDiffuse, vUv + offset * 3.0) * 0.099122;\n    color += texture2D(tDiffuse, vUv - offset * 3.0) * 0.099122;\n  #endif\n\n  #if KERNEL_SIZE == 5\n    color += texture2D(tDiffuse, vUv) * 0.227595;\n    color += texture2D(tDiffuse, vUv + offset) * 0.212674;\n    color += texture2D(tDiffuse, vUv - offset) * 0.212674;\n    color += texture2D(tDiffuse, vUv + offset * 2.0) * 0.1735285;\n    color += texture2D(tDiffuse, vUv - offset * 2.0) * 0.1735285;\n  #endif\n\n  gl_FragColor = color;\n}\n";
 
 var vertexShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\nvarying vec2 vUv;\n\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}\n";
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var TiltShiftPass = function (_Three$Pass) {
   inherits(TiltShiftPass, _Three$Pass);
@@ -1387,29 +1261,8 @@ var noiseImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABr
 
 var vertexShader$2 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\nvarying vec2 vUv;\n\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}\n";
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var VignettePass = function (_ShaderPass) {
   inherits(VignettePass, _ShaderPass);
@@ -1466,36 +1319,15 @@ var VignettePass = function (_ShaderPass) {
   return VignettePass;
 }(ShaderPass);
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var Postprocess = function () {
   function Postprocess(renderer) {
     classCallCheck(this, Postprocess);
 
     this.renderer = renderer;
-    this.composer = new EffectComposer$1(this.renderer);
+    this.composer = new EffectComposer(this.renderer);
     this.tiltShiftPass = new TiltShiftPass();
     this.composer.addPass(this.tiltShiftPass);
     this.vignettePass = new VignettePass();
@@ -1543,29 +1375,8 @@ var Postprocess = function () {
   return Postprocess;
 }();
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var RenderPass = function (_Three$Pass) {
   inherits(RenderPass, _Three$Pass);
@@ -1641,28 +1452,8 @@ var RenderPass = function (_Three$Pass) {
   return RenderPass;
 }(Three.Pass);
 
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 var ScissorPass = function (_Three$Pass) {
   inherits(ScissorPass, _Three$Pass);
@@ -1713,29 +1504,8 @@ var ScissorPass = function (_Three$Pass) {
   return ScissorPass;
 }(Three.Pass);
 
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 exports.BloomPass = BloomPass;
 exports.ClearScissorPass = ClearScissorPass;
