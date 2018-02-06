@@ -10,7 +10,6 @@ import threeExample from '@shotamatsuda/rollup-plugin-three-example'
 
 export default {
   input: './dist/planck-postprocess.module.js',
-  sourcemap: true,
   plugins: [
     image(),
     glslify(),
@@ -33,15 +32,14 @@ export default {
   external: [
     'three',
   ],
-  globals: {
-    'three': 'THREE',
-  },
-  output: [
-    {
-      format: 'umd',
-      extend: true,
-      name: 'Planck',
-      file: './dist/planck-postprocess.js',
+  output: {
+    globals: {
+      'three': 'THREE',
     },
-  ],
+    format: 'umd',
+    extend: true,
+    name: 'Planck',
+    file: './dist/planck-postprocess.js',
+    sourcemap: true,
+  },
 }

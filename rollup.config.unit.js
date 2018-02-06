@@ -10,7 +10,6 @@ const pkg = require('./package.json')
 
 export default {
   input: './test/unit.js',
-  sourcemap: true,
   plugins: [
     nodeResolve({ browser: true }),
     commonjs(),
@@ -27,7 +26,6 @@ export default {
       babelrc: false,
     }),
   ],
-  intro: 'var BUNDLER = "rollup";',
   external: [
     'source-map-support/register',
     '@takram/planck-core',
@@ -36,17 +34,17 @@ export default {
     'chai',
     'mocha',
   ],
-  globals: {
-    '@takram/planck-core': 'Planck',
-    'three': 'THREE',
-    [path.resolve(pkg.browser)]: 'Planck',
-    'chai': 'chai',
-    'mocha': 'mocha',
-  },
-  output: [
-    {
-      format: 'iife',
-      file: './dist/test/unit/rollup.js',
+  output: {
+    intro: 'var BUNDLER = "rollup";',
+    globals: {
+      '@takram/planck-core': 'Planck',
+      'three': 'THREE',
+      [path.resolve(pkg.browser)]: 'Planck',
+      'chai': 'chai',
+      'mocha': 'mocha',
     },
-  ],
+    format: 'iife',
+    file: './dist/test/unit/rollup.js',
+    sourcemap: true,
+  },
 }
