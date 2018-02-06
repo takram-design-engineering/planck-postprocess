@@ -4,6 +4,10 @@ script:
 language: node_js
 node_js:
 - 8.1
+branches:
+  only:
+  - master
+  - develop
 notifications:
   slack:
     secure: LuZQHDhNTQ6Uybw5uCl0oCuYCIRWwABdWW+EOqvvkgsRsZocg0StTa1+kDAn09lECYvR4qy9GAUIwg2Fc7kosUOOYbhebXiLcDRQw+RiEuBJs+Vene6PT/dYjtqBnsQxCYINKu+6Zp7fwiPrR2iTy8qJSWcKZZ0nVFlxe/3uMn/MqihHgeVVlYCc6Gg76C4WV6ZSGFuC85o35BQ3oPA8rmvYH6n8gN2z86vrOPDeJz24NRqw9Dex7e9bV+vL90Ao4VQsLGnoXIlvTdY3GZHXNfl+wgapkSB+nYL/WYgfSoePKHUvaGLX0Gs0wp73sRNNmGOhN+CvCSvNKdnpo8jwikLnyicmaXnpBZ9GvFDpb+SABv8PvDV/4IRM3dQqp0wXx/JfMkf2bMjRyDT9C6mDmVbfA56yqUFC15/0wfZHa3E2uVLhUuSjTWXosA6MWLAd5/4zlnsw9u7yN/H8V5rnXcuvEmRbfY2yRRD1/nIBKWB6muGY8KHsng/bo7YSq/SOU5dYQZwHV7I0DY+0HkofMidl4nDbQ1jGrqdbKDb8i6xSpCd1xsn3ZWvTRH+w5DBn7orDc1M3J9LpmN9ma85R7kNd55mS9qXmS3qHexhFa4SWSeD4NfKfH+ym5yYvTiDuXHeU78Gg3Tb4Bkfs/XDux6b+02OeUIY0QFvEuSGrt6w=

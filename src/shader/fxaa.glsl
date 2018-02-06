@@ -43,18 +43,6 @@
   #define FXAA_GLSL_130 0
 #endif
 
-#ifndef FXAA_HLSL_3
-  #define FXAA_HLSL_3 0
-#endif
-
-#ifndef FXAA_HLSL_4
-  #define FXAA_HLSL_4 0
-#endif
-
-#ifndef FXAA_HLSL_5
-  #define FXAA_HLSL_5 0
-#endif
-
 // -----------------------------------------------------------------------------
 
 // For those using non-linear color, and either not able to get luma in alpha,
@@ -106,9 +94,6 @@
 // 1 = API supports gather4 on alpha channel.
 // 0 = API does not support gather4 on alpha channel.
 #ifndef FXAA_GATHER4_ALPHA
-  #if (FXAA_HLSL_5 == 1)
-    #define FXAA_GATHER4_ALPHA 1
-  #endif
   #ifdef GL_ARB_gpu_shader5
     #define FXAA_GATHER4_ALPHA 1
   #endif
@@ -417,37 +402,6 @@
     #define FxaaTexGreen4(t, p) textureGather(t, p, 1)
     #define FxaaTexOffGreen4(t, p, o) textureGatherOffset(t, p, o, 1)
   #endif
-#endif
-
-// -----------------------------------------------------------------------------
-
-#if (FXAA_HLSL_3 == 1)
-  #define FxaaInt2 float2
-  #define FxaaTex sampler2D
-  #define FxaaTexTop(t, p) tex2Dlod(t, float4(p, 0.0, 0.0))
-  #define FxaaTexOff(t, p, o, r) tex2Dlod(t, float4(p + (o * r), 0, 0))
-#endif
-
-// -----------------------------------------------------------------------------
-
-#if (FXAA_HLSL_4 == 1)
-  #define FxaaInt2 int2
-  struct FxaaTex { SamplerState smpl; Texture2D tex; };
-  #define FxaaTexTop(t, p) t.tex.SampleLevel(t.smpl, p, 0.0)
-  #define FxaaTexOff(t, p, o, r) t.tex.SampleLevel(t.smpl, p, 0.0, o)
-#endif
-
-// -----------------------------------------------------------------------------
-
-#if (FXAA_HLSL_5 == 1)
-  #define FxaaInt2 int2
-  struct FxaaTex { SamplerState smpl; Texture2D tex; };
-  #define FxaaTexTop(t, p) t.tex.SampleLevel(t.smpl, p, 0.0)
-  #define FxaaTexOff(t, p, o, r) t.tex.SampleLevel(t.smpl, p, 0.0, o)
-  #define FxaaTexAlpha4(t, p) t.tex.GatherAlpha(t.smpl, p)
-  #define FxaaTexOffAlpha4(t, p, o) t.tex.GatherAlpha(t.smpl, p, o)
-  #define FxaaTexGreen4(t, p) t.tex.GatherGreen(t.smpl, p)
-  #define FxaaTexOffGreen4(t, p, o) t.tex.GatherGreen(t.smpl, p, o)
 #endif
 
 // -----------------------------------------------------------------------------
@@ -891,3 +845,5 @@ FxaaFloat4 FxaaPixelShader(
     return FxaaFloat4(FxaaTexTop(tex, posM).xyz, lumaM);
   #endif
 }
+
+#pragma glslify: export(FxaaPixelShader)
