@@ -8,10 +8,10 @@ import 'three/examples/js/shaders/LuminosityHighPassShader'
 import 'three/examples/js/postprocessing/UnrealBloomPass'
 
 export default class BloomPass extends Three.UnrealBloomPass {
-  constructor(width = 256, height = 256, {
+  constructor (width = 256, height = 256, {
     strength = 1,
     radius = 0.5,
-    threshold = 0.5,
+    threshold = 0.5
   } = {}) {
     // UnrealBloomPass divides the resolution by 2 for the bright render target
     // and the largest mipmap target, that makes light bleeding much visible.
@@ -24,9 +24,8 @@ export default class BloomPass extends Three.UnrealBloomPass {
     this.layers = new Three.Layers()
   }
 
-  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
+  render (renderer, writeBuffer, readBuffer, delta, maskActive) {
     const { autoClear } = renderer
-    // eslint-disable-next-line no-param-reassign
     renderer.autoClear = false
     const clearColor = renderer.getClearColor().getHex()
     const clearAlpha = renderer.getClearAlpha()
@@ -40,7 +39,7 @@ export default class BloomPass extends Three.UnrealBloomPass {
       // Use the write buffer to render the separate scene to
       const {
         separateCamera: camera,
-        separateScene: scene,
+        separateScene: scene
       } = this
       const { layers } = camera
       camera.layers = this.layers
@@ -91,14 +90,13 @@ export default class BloomPass extends Three.UnrealBloomPass {
       renderer.render(this.scene, this.camera, readBuffer, false)
     }
 
-    // eslint-disable-next-line no-param-reassign
     renderer.autoClear = autoClear
     if (this.clearColor) {
       renderer.setClearColor(clearColor, clearAlpha)
     }
   }
 
-  setSize(width, height) {
+  setSize (width, height) {
     // The same discussion in the constructor
     super.setSize(width * 2, height * 2)
   }

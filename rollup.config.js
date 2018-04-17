@@ -8,8 +8,10 @@ import image from '@shotamatsuda/rollup-plugin-image'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import threeExample from '@shotamatsuda/rollup-plugin-three-example'
 
+import pkg from './package.json'
+
 export default {
-  input: './dist/planck-postprocess.module.js',
+  input: pkg.module,
   plugins: [
     image(),
     glslify(),
@@ -22,24 +24,26 @@ export default {
         'es2016',
         'es2017',
         'stage-3',
+        'stage-2'
       ],
       plugins: [
-        'external-helpers',
+        'external-helpers'
       ],
-      babelrc: false,
-    }),
+      babelrc: false
+    })
   ],
   external: [
-    'three',
+    'three'
   ],
   output: {
     globals: {
-      'three': 'THREE',
+      'three': 'THREE'
     },
     format: 'umd',
+    exports: 'named',
     extend: true,
     name: 'Planck',
-    file: './dist/planck-postprocess.js',
-    sourcemap: true,
-  },
+    file: pkg.main,
+    sourcemap: true
+  }
 }

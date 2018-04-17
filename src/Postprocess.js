@@ -6,7 +6,7 @@ import TiltShiftPass from './TiltShiftPass'
 import VignettePass from './VignettePass'
 
 export default class Postprocess {
-  constructor(renderer) {
+  constructor (renderer) {
     this.renderer = renderer
     this.composer = new EffectComposer(this.renderer)
     this.tiltShiftPass = new TiltShiftPass()
@@ -16,24 +16,24 @@ export default class Postprocess {
     this.ensureRenderToScreen()
   }
 
-  render(scene, camera) {
+  render (scene, camera) {
     this.composer.render()
   }
 
-  setSize(width, height) {
+  setSize (width, height) {
     const pixelRatio = this.renderer.getPixelRatio()
     this.composer.setSize(width, height, pixelRatio)
   }
 
-  addPass(pass) {
+  addPass (pass) {
     this.composer.addPass(pass)
   }
 
-  insertPass(pass, index) {
+  insertPass (pass, index) {
     this.composer.insertPass(pass, index)
   }
 
-  ensureRenderToScreen() {
+  ensureRenderToScreen () {
     let lastPass
     for (let i = 0; i < this.composer.passes.length; ++i) {
       const pass = this.composer.passes[i]

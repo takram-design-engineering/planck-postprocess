@@ -4,7 +4,7 @@
 import * as Three from 'three'
 
 export default class RenderPass extends Three.Pass {
-  constructor(scene, camera, overrideMaterial, clearColor, clearAlpha) {
+  constructor (scene, camera, overrideMaterial, clearColor, clearAlpha) {
     super()
     this.scene = scene
     this.camera = camera
@@ -17,15 +17,14 @@ export default class RenderPass extends Three.Pass {
     this.info = {
       render: {},
       memory: {},
-      programs: [],
+      programs: []
     }
   }
 
-  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
+  render (renderer, writeBuffer, readBuffer, delta, maskActive) {
+    // Save renderer's states
     const { autoClear } = renderer
-    // eslint-disable-next-line no-param-reassign
     renderer.autoClear = false
-
     let clearColor
     let clearAlpha
     if (this.clearColor) {
@@ -37,6 +36,7 @@ export default class RenderPass extends Three.Pass {
       renderer.clearDepth()
     }
 
+    // Render using our override material if any
     this.scene.overrideMaterial = this.overrideMaterial
     this.onBeforeRender(renderer, this.scene, this.camera)
     if (this.renderToScreen) {
@@ -47,19 +47,19 @@ export default class RenderPass extends Three.Pass {
     this.info = {
       render: { ...renderer.info.render },
       memory: { ...renderer.info.memory },
-      programs: [...renderer.info.programs],
+      programs: [...renderer.info.programs]
     }
     this.onAfterRender(renderer, this.scene, this.camera)
     this.scene.overrideMaterial = null
 
-    // eslint-disable-next-line no-param-reassign
+    // Restore renderer's states
     renderer.autoClear = autoClear
     if (this.clearColor) {
       renderer.setClearColor(clearColor, clearAlpha)
     }
   }
 
-  onBeforeRender(renderer, scene, camera) {}
+  onBeforeRender (renderer, scene, camera) {}
 
-  onAfterRender(renderer, scene, camera) {}
+  onAfterRender (renderer, scene, camera) {}
 }
