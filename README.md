@@ -4,6 +4,7 @@ Planck Postprocess
 [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 [![npm version](https://badge.fury.io/js/%40takram%2Fplanck-postprocess.svg)](http://badge.fury.io/js/%40takram%2Fplanck-postprocess)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Build Status](https://travis-ci.org/takram-design-engineering/planck-postprocess.svg?branch=master)](https://travis-ci.org/takram-design-engineering/planck-postprocess)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/planck-postprocess)](https://saucelabs.com/u/planck-postprocess)
 

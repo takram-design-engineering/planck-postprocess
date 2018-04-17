@@ -8,58 +8,58 @@ import ShaderPass from './ShaderPass'
 import vertexShader from './shader/fxaa_vert.glsl'
 
 export default class FXAAPass extends ShaderPass {
-  constructor(width = 256, height = 256, pixelRatio = 1, quality = 12, {
+  constructor (width = 256, height = 256, pixelRatio = 1, quality = 12, {
     subpix = 0.75,
     edgeThreshold = 0.125,
-    edgeThresholdMin = 0.0625,
+    edgeThresholdMin = 0.0625
   } = {}) {
     const deviceWidth = width * pixelRatio
     const deviceHeight = height * pixelRatio
     super({
       defines: {
-        FXAA_QUALITY_PRESET: quality,
+        FXAA_QUALITY_PRESET: quality
       },
       uniforms: {
         tDiffuse: { value: null },
         resolution: {
-          value: new Three.Vector2(1 / deviceWidth, 1 / deviceHeight),
+          value: new Three.Vector2(1 / deviceWidth, 1 / deviceHeight)
         },
         subpix: { value: subpix },
         edgeThreshold: { value: edgeThreshold },
-        edgeThresholdMin: { value: edgeThresholdMin },
+        edgeThresholdMin: { value: edgeThresholdMin }
       },
       vertexShader,
-      fragmentShader,
+      fragmentShader
     })
   }
 
-  setSize(width, height, pixelRatio = 1) {
+  setSize (width, height, pixelRatio = 1) {
     const deviceWidth = width * pixelRatio
     const deviceHeight = height * pixelRatio
     this.uniforms.resolution.value.set(1 / deviceWidth, 1 / deviceHeight)
   }
 
-  get subpix() {
+  get subpix () {
     return this.uniforms.subpix.value
   }
 
-  set subpix(value) {
+  set subpix (value) {
     this.uniforms.subpix.value = value
   }
 
-  get edgeThreshold() {
+  get edgeThreshold () {
     return this.uniforms.edgeThreshold.value
   }
 
-  set edgeThreshold(value) {
+  set edgeThreshold (value) {
     this.uniforms.edgeThreshold.value = value
   }
 
-  get edgeThresholdMin() {
+  get edgeThresholdMin () {
     return this.uniforms.edgeThresholdMin.value
   }
 
-  set edgeThresholdMin(value) {
+  set edgeThresholdMin (value) {
     this.uniforms.edgeThresholdMin.value = value
   }
 }

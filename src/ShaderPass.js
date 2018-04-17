@@ -6,7 +6,7 @@ import * as Three from 'three'
 import 'three/examples/js/postprocessing/EffectComposer'
 
 export default class ShaderPass extends Three.Pass {
-  constructor(shader, textureId = 'tDiffuse') {
+  constructor (shader, textureId = 'tDiffuse') {
     super()
     this.textureId = textureId
     if (shader instanceof Three.ShaderMaterial) {
@@ -18,7 +18,7 @@ export default class ShaderPass extends Three.Pass {
         defines: shader.defines || {},
         uniforms: this.uniforms,
         vertexShader: shader.vertexShader,
-        fragmentShader: shader.fragmentShader,
+        fragmentShader: shader.fragmentShader
       })
     }
     this.camera = new Three.OrthographicCamera(-1, 1, 1, -1, 0, 1)
@@ -29,15 +29,12 @@ export default class ShaderPass extends Three.Pass {
     this.scene.add(this.quad)
   }
 
-  dispose() {
+  dispose () {
     this.material.dispose()
   }
 
-  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    const {
-      scene,
-      camera,
-    } = this
+  render (renderer, writeBuffer, readBuffer, delta, maskActive) {
+    const { scene, camera } = this
     if (this.uniforms[this.textureId]) {
       this.uniforms[this.textureId].value = readBuffer.texture
     }

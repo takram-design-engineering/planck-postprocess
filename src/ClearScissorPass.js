@@ -4,15 +4,13 @@
 import * as Three from 'three'
 
 export default class ClearScissorPass extends Three.Pass {
-  constructor() {
+  constructor () {
     super()
     this.needsSwap = false
   }
 
-  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    // eslint-disable-next-line no-param-reassign
+  render (renderer, writeBuffer, readBuffer, delta, maskActive) {
     readBuffer.scissorTest = false
-    // eslint-disable-next-line no-param-reassign
     writeBuffer.scissorTest = false
   }
 }

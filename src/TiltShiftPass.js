@@ -9,11 +9,11 @@ import fragmentShader from './shader/tilt_shift_frag.glsl'
 import vertexShader from './shader/tilt_shift_vert.glsl'
 
 export default class TiltShiftPass extends Three.Pass {
-  constructor(width = 256, height = 256, pixelRatio = 1, size = 9, {
+  constructor (width = 256, height = 256, pixelRatio = 1, size = 9, {
     radius = 3,
     radiusMax,
     center = 0,
-    scale = 1024,
+    scale = 1024
   } = {}) {
     super()
     this.needsSwap = false
@@ -24,15 +24,15 @@ export default class TiltShiftPass extends Three.Pass {
       radius: { value: radius },
       radiusMax: { value: (radiusMax !== undefined ? radiusMax : radius * 2) },
       center: { value: 0 },
-      scale: { value: scale },
+      scale: { value: scale }
     }
     this.material = new Three.ShaderMaterial({
       defines: {
-        KERNEL_SIZE: size,
+        KERNEL_SIZE: size
       },
       uniforms: this.uniforms,
       vertexShader,
-      fragmentShader,
+      fragmentShader
     })
     this.camera = new Three.OrthographicCamera(-1, 1, 1, -1, 0, 1)
     this.scene = new Three.Scene()
@@ -42,16 +42,12 @@ export default class TiltShiftPass extends Three.Pass {
     this.scene.add(this.quad)
   }
 
-  dispose() {
+  dispose () {
     this.material.dispose()
   }
 
-  render(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    const {
-      scene,
-      camera,
-      material,
-    } = this
+  render (renderer, writeBuffer, readBuffer, delta, maskActive) {
+    const { scene, camera, material } = this
     material.uniforms.tDiffuse.value = readBuffer.texture
     material.uniforms.direction.value.set(1, 0)
     renderer.render(scene, camera, writeBuffer, this.clear)
@@ -64,39 +60,39 @@ export default class TiltShiftPass extends Three.Pass {
     }
   }
 
-  setSize(width, height, pixelRatio = 1) {
+  setSize (width, height, pixelRatio = 1) {
     this.uniforms.resolution.value.set(width, height)
   }
 
-  get radius() {
+  get radius () {
     return this.uniforms.radius.value
   }
 
-  set radius(value) {
+  set radius (value) {
     this.uniforms.radius.value = value
   }
 
-  get radiusMax() {
+  get radiusMax () {
     return this.uniforms.radiusMax.value
   }
 
-  set radiusMax(value) {
+  set radiusMax (value) {
     this.uniforms.radiusMax.value = value
   }
 
-  get center() {
+  get center () {
     return this.uniforms.center.value
   }
 
-  set center(value) {
+  set center (value) {
     this.uniforms.center.value = value
   }
 
-  get scale() {
+  get scale () {
     return this.uniforms.scale.value
   }
 
-  set scale(value) {
+  set scale (value) {
     this.uniforms.scale.value = value
   }
 }
