@@ -17,7 +17,6 @@ module.exports = {
   externals: {
     'chai': 'chai',
     'mocha': 'mocha',
-    '@takram/planck-core': 'Planck',
     'three': 'THREE',
     'source-map-support/register': 'null'
   },

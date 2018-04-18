@@ -9,7 +9,6 @@ import path from 'path'
 const globals = {
   'chai': 'chai',
   'mocha': 'mocha',
-  '@takram/planck-core': 'Planck',
   'three': 'THREE'
 }
 
