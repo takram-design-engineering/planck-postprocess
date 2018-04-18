@@ -10,13 +10,17 @@ import threeExample from '@shotamatsuda/rollup-plugin-three-example'
 
 import pkg from './package.json'
 
+const globals = {
+  'three': 'THREE'
+}
+
 export default {
-  input: pkg.module,
+  input: './src/main.js',
   plugins: [
     image(),
     glslify(),
     threeExample(),
-    nodeResolve({ browser: true }),
+    nodeResolve(),
     commonjs(),
     babel({
       presets: [
@@ -32,18 +36,22 @@ export default {
       babelrc: false
     })
   ],
-  external: [
-    'three'
-  ],
-  output: {
-    globals: {
-      'three': 'THREE'
+  external: Object.keys(globals),
+  output: [
+    {
+      globals,
+      format: 'umd',
+      exports: 'named',
+      extend: true,
+      name: 'Planck',
+      file: pkg.main,
+      sourcemap: true
     },
-    format: 'umd',
-    exports: 'named',
-    extend: true,
-    name: 'Planck',
-    file: pkg.main,
-    sourcemap: true
-  }
+    {
+      globals,
+      format: 'es',
+      file: pkg.module,
+      sourcemap: true
+    }
+  ]
 }
