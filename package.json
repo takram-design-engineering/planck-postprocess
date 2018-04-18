@@ -52,7 +52,7 @@
     "@shotamatsuda/rollup-plugin-glslify": "^0.1.2",
     "@shotamatsuda/rollup-plugin-image": "^0.0.2",
     "@shotamatsuda/rollup-plugin-three-example": "^0.2.0",
-    "@takram/planck-core": "^0.5.1",
+    "@takram/planck-core": "^0.6.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -81,7 +81,7 @@
     "standard": "^11.0.1",
     "three": "^0.91.0",
     "uglify-js": "^3.3.21",
-    "webpack": "^4.5.0",
+    "webpack": "^4.6.0",
     "webpack-cli": "^2.0.14"
   },
   "saucelabs": {

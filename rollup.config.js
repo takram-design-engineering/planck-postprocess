@@ -11,6 +11,7 @@ import threeExample from '@shotamatsuda/rollup-plugin-three-example'
 import pkg from './package.json'
 
 const globals = {
+  '@takram/planck-core': 'Planck',
   'three': 'THREE'
 }
 
