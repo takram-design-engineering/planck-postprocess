@@ -17,9 +17,9 @@ module.exports = {
   externals: {
     'chai': 'chai',
     'mocha': 'mocha',
-    'source-map-support/register': 'null',
     '@takram/planck-core': 'Planck',
-    'three': 'THREE'
+    'three': 'THREE',
+    'source-map-support/register': 'null'
   },
   module: {
     rules: [
