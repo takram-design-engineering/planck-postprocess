@@ -1084,7 +1084,6 @@
 	      var deviceHeight = height * pixelRatio;
 	      this.renderTarget1.setSize(deviceWidth, deviceHeight);
 	      this.renderTarget2.setSize(deviceWidth, deviceHeight);
-
 	      for (var i = 0; i < this.passes.length; ++i) {
 	        this.passes[i].setSize(width, height, pixelRatio);
 	      }
@@ -1358,10 +1357,10 @@
 	  createClass(RenderPass, [{
 	    key: 'render',
 	    value: function render(renderer, writeBuffer, readBuffer, delta, maskActive) {
+	      // Save renderer's states
 	      var autoClear = renderer.autoClear;
 
 	      renderer.autoClear = false;
-
 	      var clearColor = void 0;
 	      var clearAlpha = void 0;
 	      if (this.clearColor) {
@@ -1373,6 +1372,7 @@
 	        renderer.clearDepth();
 	      }
 
+	      // Render using our override material if any
 	      this.scene.overrideMaterial = this.overrideMaterial;
 	      this.onBeforeRender(renderer, this.scene, this.camera);
 	      if (this.renderToScreen) {
@@ -1388,6 +1388,7 @@
 	      this.onAfterRender(renderer, this.scene, this.camera);
 	      this.scene.overrideMaterial = null;
 
+	      // Restore renderer's states
 	      renderer.autoClear = autoClear;
 	      if (this.clearColor) {
 	        renderer.setClearColor(clearColor, clearAlpha);
@@ -1454,6 +1455,17 @@
 
 	// The MIT License
 
+	var main = {
+	  BloomPass: BloomPass,
+	  ClearScissorPass: ClearScissorPass,
+	  FXAAPass: FXAAPass,
+	  Postprocess: Postprocess,
+	  RenderPass: RenderPass,
+	  ScissorPass: ScissorPass,
+	  TiltShiftPass: TiltShiftPass,
+	  VignettePass: VignettePass
+	};
+
 	exports.BloomPass = BloomPass;
 	exports.ClearScissorPass = ClearScissorPass;
 	exports.FXAAPass = FXAAPass;
@@ -1462,6 +1474,7 @@
 	exports.ScissorPass = ScissorPass;
 	exports.TiltShiftPass = TiltShiftPass;
 	exports.VignettePass = VignettePass;
+	exports.default = main;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 
