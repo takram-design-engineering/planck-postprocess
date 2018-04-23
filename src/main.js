@@ -1,14 +1,14 @@
 // The MIT License
 // Copyright (C) 2016-Present Shota Matsuda
 
-import BloomPass from '../src/BloomPass'
-import ClearScissorPass from '../src/ClearScissorPass'
-import FXAAPass from '../src/FXAAPass'
-import Postprocess from '../src/Postprocess'
-import RenderPass from '../src/RenderPass'
-import ScissorPass from '../src/ScissorPass'
-import TiltShiftPass from '../src/TiltShiftPass'
-import VignettePass from '../src/VignettePass'
+import BloomPass from './BloomPass'
+import ClearScissorPass from './ClearScissorPass'
+import FXAAPass from './FXAAPass'
+import Postprocess from './Postprocess'
+import RenderPass from './RenderPass'
+import ScissorPass from './ScissorPass'
+import TiltShiftPass from './TiltShiftPass'
+import VignettePass from './VignettePass'
 
 export {
   BloomPass,
