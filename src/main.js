@@ -1,11 +1,33 @@
 // The MIT License
 // Copyright (C) 2016-Present Shota Matsuda
 
-export { default as BloomPass } from '../src/BloomPass'
-export { default as ClearScissorPass } from '../src/ClearScissorPass'
-export { default as FXAAPass } from '../src/FXAAPass'
-export { default as Postprocess } from '../src/Postprocess'
-export { default as RenderPass } from '../src/RenderPass'
-export { default as ScissorPass } from '../src/ScissorPass'
-export { default as TiltShiftPass } from '../src/TiltShiftPass'
-export { default as VignettePass } from '../src/VignettePass'
+import BloomPass from './BloomPass'
+import ClearScissorPass from './ClearScissorPass'
+import FXAAPass from './FXAAPass'
+import Postprocess from './Postprocess'
+import RenderPass from './RenderPass'
+import ScissorPass from './ScissorPass'
+import TiltShiftPass from './TiltShiftPass'
+import VignettePass from './VignettePass'
+
+export {
+  BloomPass,
+  ClearScissorPass,
+  FXAAPass,
+  Postprocess,
+  RenderPass,
+  ScissorPass,
+  TiltShiftPass,
+  VignettePass
+}
+
+export default {
+  BloomPass,
+  ClearScissorPass,
+  FXAAPass,
+  Postprocess,
+  RenderPass,
+  ScissorPass,
+  TiltShiftPass,
+  VignettePass
+}

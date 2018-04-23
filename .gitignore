@@ -129,4 +129,3 @@ $RECYCLE.BIN/
 !/dist
 /dist/*.map
 /dist/test
-/example/dist
